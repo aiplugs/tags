@@ -1,0 +1,109 @@
+.aiplugs-code {
+    display: flex;
+    flex-direction: column;
+}
+.aiplugs-code__header {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-secondary);
+    transition: color linear .25s;
+}
+.aiplugs-code__info {
+    cursor: pointer;
+    margin-left: 0.4rem;
+}
+.aiplugs-code__description {
+    display: none;
+    margin: 1.6rem 0 0;
+    color: var(--color-text-secondary);
+    font-size: 1.4rem;
+}
+.aiplugs-code__description--visible {
+    display: block;
+}
+.aiplugs-code__message {
+    margin-top: 0.4rem;
+    padding: 0 1.2rem;
+}
+.aiplugs-code__cover {
+    position: relative;
+}
+.aiplugs-code__screen {
+    display: none;
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;        
+    background: rgba(255,255,255,0.5);
+}
+.aiplugs-code__screen > div {
+    width: 100%;
+    font-size: 2.4rem;
+    text-align: center;
+    color: var(--color-primary);
+}
+.aiplugs-code__cover:hover .aiplugs-code__screen  {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+.aiplugs-code__view {
+    overflow: hidden;
+    min-height: 5em;
+    max-height: 5em;
+}
+.aiplugs-code--visible-all .aiplugs-code__view {
+    max-height:unset;
+}
+
+.aiplugs-code textarea {
+    margin: 0;
+    padding: 0;
+    width: 0;
+    height: 0;
+    border: none;
+    outline: none;
+    position: absolute;
+}
+
+.aiplugs-code__toggle {
+    border: none;
+    outline: none;
+    background: var(--color-base, white);
+    opacity: 0.5;
+    height: 2.4rem;
+    font-size: 2.4rem;
+    line-height: 2.4rem;
+    margin-top: -2.4rem;
+    z-index: 1;
+    transition: opacity linear .15s;
+}
+.aiplugs-code__toggle::after {
+    content: '\f107';
+}
+.aiplugs-code--visible-all .aiplugs-code__toggle::after {
+    content: '\f106';
+}
+.aiplugs-tinymce {
+    flex: 1;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 0 2px 0 0;
+}
+.mce-tinymce {
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+.aiplugs-monaco {
+    flex: 1;
+}
+
+.aiplugs-code textarea.input-validation-error ~ pre code {
+    background: bisque !important;
+    box-shadow: 0 0 0px 100vw bisque inset;
+}

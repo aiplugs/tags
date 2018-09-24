@@ -1,0 +1,90 @@
+.aiplugs-input {
+    display: flex;
+    flex-direction: column;
+}
+.aiplugs-input__header {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-secondary);
+    transition: color linear .25s;
+}
+.aiplugs-input__info {
+    cursor: pointer;
+    margin-left: 0.4rem;
+}
+.aiplugs-input__description {
+    display: none;
+    margin: 1.6rem 0 0;
+    color: var(--color-text-secondary);
+    font-size: 1.4rem;
+}
+.aiplugs-input__description--visible {
+    display: block;
+}
+.aiplugs-input__message {
+    margin-top: 0.4rem;
+    padding: 0 1.2rem;
+}
+
+.aiplugs-input input {
+    display: block;
+    padding: 1.2rem;
+    background: var(--color-bg-secondary);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    font-size: 1.6rem;
+    transition: backgroud linear .25s;
+}
+.aiplugs-input input:focus,
+.aiplugs-input input:active {
+    background: var(--color-bg-secondary);
+}
+
+.aiplugs-input:hover .aiplugs-input__header label {
+    color: var(--color-text-primary);
+}
+.aiplugs-input__info:hover {
+    color: var(--color-text-primary);
+}
+
+.aiplugs-input__field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.aiplugs-input__field::before {
+    display: none;
+    font-family: 'Font Awesome 5 Free';
+    position: absolute;
+    right: 1.2rem;
+    height: 100%;
+    font-size: 1.8rem;
+    align-items: center;
+}
+.aiplugs-input--duplicated .aiplugs-input__field::before {
+    display: flex;
+    content: '\f057';
+    color: var(--color-error);
+}
+.aiplugs-input--unique .aiplugs-input__field::before {
+    display: flex;
+    content: '\f058';
+    color: var(--color-primary);
+}
+
+.aiplugs-input:hover input {
+    background: #f0f0f0;
+}
+
+.aiplugs-input:focus-within .aiplugs-input__header label {
+    color: var(--color-primary);
+}
+
+.aiplugs-input input.input-validation-error,
+.aiplugs-input input.input-validation-error:-webkit-autofill,
+.aiplugs-input--duplicated input {
+    background: bisque !important;
+    box-shadow: 0 0 0px 100vw bisque inset;
+}
+

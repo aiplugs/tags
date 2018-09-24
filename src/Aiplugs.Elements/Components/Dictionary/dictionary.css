@@ -1,0 +1,86 @@
+.aiplugs-dictionary {
+    display: flex;
+    flex-direction: column;
+}
+.aiplugs-dictionary__header {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-secondary);
+    transition: color linear .25s;
+}
+.aiplugs-dictionary__info {
+    cursor: pointer;
+    margin-left: 0.4rem;
+}
+.aiplugs-dictionary__description {
+    display: none;
+    margin: 1.6rem 0 0;
+    color: var(--color-text-secondary);
+    font-size: 1.4rem;
+}
+.aiplugs-dictionary__description--visible {
+    display: block;
+}
+.aiplugs-dictionary__message {
+    margin-top: 0.4rem;
+    padding: 0 1.2rem;
+}
+
+.aiplugs-dictionary input {
+    display: block;
+    padding: 1.2rem;
+    background: var(--color-bg-secondary);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    font-size: 1.6rem;
+    transition: backgroud linear .25s;
+}
+
+.aiplugs-dictionary:hover input {
+    background: #f0f0f0;
+}
+
+.aiplugs-dictionary input:focus,
+.aiplugs-dictionary input:active {
+    background: var(--color-bg-secondary);
+}
+
+.aiplugs-dictionary button {
+    border: none;
+    outline: none;
+    font-size: 1.6rem;
+    padding: 1.2rem;
+    background: var(--color-base, white);
+    color: var(--color-text-secondary);
+    opacity: 0.5;
+    transition: all linear .15s;
+}
+.aiplugs-dictionary button:focus, .aiplugs-dictionary button:hover,
+.aiplugs-dictionary button:focus i, .aiplugs-dictionary button:hover i {
+    color: var(--color-primary);
+    opacity: 1;
+}
+.aiplugs-dictionary button:disabled, .aiplugs-dictionary button:disabled i {
+    display: none;
+}
+.close:focus, .close:hover {
+    text-shadow:0 0 1.6rem var(--color-primary);
+}
+input.aiplugs-dictionary__item--invalid,
+input.aiplugs-dictionary__item--invalid:-webkit-autofill {
+    background: bisque !important;
+    box-shadow: 0 0 0px 100vw bisque inset;
+}
+
+.aiplugs-dictionary__item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.8rem;
+}
+.aiplugs-dictionary__item:last-child {
+    margin-bottom: 0;
+}
+.aiplugs-dictionary__item-key {
+    margin-right: 0.8rem;
+}

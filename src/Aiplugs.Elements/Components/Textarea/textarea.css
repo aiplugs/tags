@@ -1,0 +1,69 @@
+.aiplugs-textarea {
+    display: flex;
+    flex-direction: column;
+}
+.aiplugs-textarea__header {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-secondary);
+    transition: color linear .25s;
+}
+.aiplugs-textarea__info {
+    cursor: pointer;
+    margin-left: 0.4rem;
+}
+.aiplugs-textarea__description {
+    display: none;
+    margin: 1.6rem 0 0;
+    color: var(--color-text-secondary);
+    font-size: 1.4rem;
+}
+.aiplugs-textarea__description--visible {
+    display: block;
+}
+.aiplugs-textarea__message {
+    margin-top: 0.4rem;
+    padding: 0 1.2rem;
+}
+
+.aiplugs-textarea textarea {
+    display: block;
+    padding: 1.2rem;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border: none;
+    outline: none;
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    transition: backgroud linear .25s;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    resize: none;
+  }
+
+.aiplugs-input textarea:focus,
+.aiplugs-input textarea:active {
+    background: var(--color-bg-secondary);
+}
+
+.aiplugs-textarea:hover .aiplugs-textarea__header label {
+    color: var(--color-text-primary);
+}
+.aiplugs-textarea__info:hover {
+    color: var(--color-text-primary);
+}
+
+.aiplugs-textarea:hover input {
+    background: #f0f0f0;
+}
+
+.aiplugs-textarea:focus-within .aiplugs-textarea__header label {
+    color: var(--color-primary);
+}
+
+.aiplugs-textarea textarea.input-validation-error,
+.aiplugs-textarea textarea.input-validation-error:-webkit-autofill {
+    background: bisque !important;
+    box-shadow: 0 0 0px 100vw bisque inset;
+}
+

@@ -1,0 +1,19 @@
+[
+    {
+        "outputFileName": "wwwroot/lib/aiplugs-elements/css/style.css",
+        "inputFiles": [
+            "Components/**/*.css"
+        ]
+    },
+    {
+        "outputFileName": "wwwroot/lib/aiplugs-elements/js/script.js",
+        "inputFiles": [
+            "Components/**/*.js"
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": false
+        },
+        "sourceMap": false
+    }
+]

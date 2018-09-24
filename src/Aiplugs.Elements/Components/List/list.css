@@ -1,0 +1,129 @@
+[data-controller="aiplugs-list"] > tbody > tr > td > button {
+    background: blue;
+    width: 3.2rem;
+    height: 3.2rem;
+}
+[data-controller="aiplugs-list"] > tbody > tr[data-aiplugs-list-item-checked="true"] > td > button {
+    background: red;
+}
+.aiplugs-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.aiplugs-list thead,
+.aiplugs-list tbody,
+.aiplugs-list th,
+.aiplugs-list td {
+  display: block;
+}
+
+.aiplugs-list thead,
+.aiplugs-list tbody {
+  overflow-y: scroll;
+}
+
+.aiplugs-list thead::-webkit-scrollbar {
+    visibility: hidden;
+}
+
+.aiplugs-list tbody {
+    flex: 1;
+}
+
+.aiplugs-list tr {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.aiplugs-list th,
+.aiplugs-list td {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 1.2rem;
+    width: 14.4rem;
+    font-weight: normal; 
+}
+
+.aiplugs-list th {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+}
+.aiplugs-list td {
+    font-size: 1.6rem;
+    cursor: pointer;        
+}
+
+.aiplugs-list th:nth-child(1),
+.aiplugs-list td:nth-child(1) {
+    width: 2.4rem;
+}
+.aiplugs-list__item-selector {
+    position: relative;
+    user-select: none;
+    display: block;
+    box-sizing: border-box;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-radius: 0.8rem;
+    border-color: var(--color-divider);
+    transition: all linear 0.15s;
+    cursor: pointer;
+}
+.aiplugs-list__item--checked {
+    background-color: var(--color-divider);
+}
+.aiplugs-list__item--selected {
+    background-color: var(--color-secondary);
+}
+.aiplugs-list__item--checked .aiplugs-list__item-selector {
+    border-color: var(--color-primary);
+}
+.aiplugs-list__item--checked .aiplugs-list__item-selector::after {
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 1.6rem;
+    height: 1.6rem;
+    top: 0.2rem;
+    left: 0.2rem;
+    content: "";
+    border-radius: 0.4rem;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.aiplugs-list tbody {
+    overflow-y: scroll;
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, radial-gradient(50% 0, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+    background: linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 100% 2rem, 100% 2rem, 100% 0.7rem, 100% 0.7rem;
+    background-attachment: local, local, scroll, scroll;
+}
+
+.aiplugs-list__item-selector input[type="checkbox"]{
+    display: none;
+}
+
+.aiplugs-list__column i {
+    margin-right: 1.2rem;
+    color: var(--color-primary);
+}
+.aiplugs-list__column a {
+    text-decoration: none;
+    color: var(--color-text-primary);
+}
+.aiplugs-list__column a:visited {
+    color: var(--color-text-primary);
+}
+.aiplugs-list__column a:active {
+    color: var(--color-primary);
+}

@@ -1,0 +1,12 @@
+.aiplugs-actions {
+    display: flex;
+    flex-direction: row;
+    background: var(--color-bg-primary);
+    padding: 1.2rem;
+}
+.aiplugs-actions > .full {
+    width: 100%;
+}
+.aiplugs-actions > .space {
+    flex: 1;
+}
