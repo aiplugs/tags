@@ -1,0 +1,9 @@
+.vscode
+.vs
+bin
+obj
+*.db
+*.dll
+packages/*
+node_modules
+
