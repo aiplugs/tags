@@ -1,0 +1,8 @@
+@model Item
+<li>
+    <p bold>@Model.Title</p>
+    @if(Model.Children != null && Model.Children.Count > 0)
+    {
+        <partial name="_List" model="Model.Children" />
+    }
+</li>

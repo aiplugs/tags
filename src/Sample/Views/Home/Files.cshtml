@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Files";
+}
+<aiplugs-nav>
+    <aiplugs-nav-item icon="~/images/icon.svg" href="~/">
+        <span class="logo">aiplugs cms</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-bars" class="fold-action">
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-folder" class="active">
+        <span>Files</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-sticky-note">
+        <span>Templates</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-database">
+        <span>Collections</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-items>
+        <aiplugs-nav-item href="form.html">Sample Collection</aiplugs-nav-item>
+    </aiplugs-nav-items>
+    <aiplugs-nav-item icon="fa fa-cog">
+        <span>Settings</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-items>
+        <aiplugs-nav-item>Collections</aiplugs-nav-item>
+    <aiplugs-nav-item>Users</aiplugs-nav-item>
+        <aiplugs-nav-item>App Settings</aiplugs-nav-item>
+    </aiplugs-nav-items>
+    <div class="flex"></div>
+    <aiplugs-nav-item slot="bottom" icon="https://avatars2.githubusercontent.com/u/1011232?s=32&u=332a5b77904556e83686f16105a3355f46c82292&v=4">
+        iwate
+    </aiplugs-nav-item>
+</aiplugs-nav>
+<aiplugs-blade label="Sample">
+    <form id="list" method="GET" class="flex">
+        <aiplugs-actions>
+            <button class="btn">Button</button>
+            <button class="btn primary">Button</button>
+            <button class="btn block">Button</button>
+            <span class="space"></span>
+            <button type="button" id="open-dialog" class="btn block primary">Button</button>
+            <aiplugs-dialog open="#open-dialog">
+                <p>本当に削除しますか？</p>
+                <button name="remove" for="list" type="submit" class="btn">Yes</button>
+                <button class="btn primary block">No</button>
+            </aiplugs-dialog>
+        </aiplugs-actions>
+        
+        <aiplugs-list label-name="Name*" label-size="Size" label-lastmodified="Last Modified">
+            <aiplugs-list-item name="items" item="1">
+                <aiplugs-list-column class="flex">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>Sample 1
+                    </a>
+                </aiplugs-list-column>
+                <aiplugs-list-column class="text-small">500 KB</aiplugs-list-column>
+                <aiplugs-list-column class="text-small">2018/07/23 12:00:00</aiplugs-list-column>
+            </aiplugs-list-item>
+            <aiplugs-list-item name="items" item="2">
+                <aiplugs-list-column class="flex">
+                    <a ic-get-from="/preview.html" ic-target="#preview">
+                        <i class="far fa-file"></i>Sample 2
+                    </a>
+                </aiplugs-list-column>
+                <aiplugs-list-column class="text-small">500 KB</aiplugs-list-column>
+                <aiplugs-list-column class="text-small">2018/07/23 12:00:00</aiplugs-list-column>
+            </aiplugs-list-item>
+        </aiplugs-list>
+    </form>
+</aiplugs-blade>
+<div id="preview"></div>

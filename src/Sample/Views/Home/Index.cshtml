@@ -1,0 +1,192 @@
+﻿@using Aiplugs.Elements
+@{
+    ViewData["Title"] = "Index";
+    var ajax = new Ajax { Url = "/usernames.json?startsWith={0}" };
+    var ajax2 = new Ajax { Url = "/cities.json?startsWith={0}" };
+    var selection1 = new SelectListItem[]{new SelectListItem { Text = "" }}.Concat(Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = $"<strong>Text {i}</strong>", Value = i.ToString() }));
+    var selection2 = Enumerable.Range(0, 4).Select(i => new SelectListItem { Text = $"<strong>Text {i}</strong>", Value = i.ToString() });
+    var selection3 = Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = $"<strong>Text {i}</strong>", Value = i.ToString() });
+    var selection4 = Enumerable.Range(0, 4).Select(i => new SelectListItem { Text = $"<strong>Text {i}</strong>", Value = i.ToString() });
+    var code = @"<h1>Hello, World!</h1>";
+    var name = "Name <script>alert('xss')</script>";
+    var dict = new Dictionary<string, string> { {"MSG", "Hello, World!"} };
+    var tags = new [] { new SelectListItem { Text = "東京", Value = "tokyo"} };
+    var tagValue = new [] { "tokyo" };
+}
+<style>
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+    .aiplugs-input, 
+    .aiplugs-checkbox,
+    .aiplugs-select,
+    .aiplugs-textarea,
+    .aiplugs-code,
+    .aiplugs-dictionary,
+    .aiplugs-tag  {
+        margin: 2.4rem 0;
+    }
+</style>
+
+<aiplugs-nav>
+    <aiplugs-nav-item icon="~/images/icon.svg" href="~/">
+        <span class="logo">aiplugs cms</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-bars" class="fold-action">
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-folder" class="active">
+        <span>Files</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-sticky-note">
+        <span>Templates</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-item icon="fa fa-database">
+        <span>Collections</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-items>
+        <aiplugs-nav-item href="form.html">Sample Collection</aiplugs-nav-item>
+    </aiplugs-nav-items>
+    <aiplugs-nav-item icon="fa fa-cog">
+        <span>Settings</span>
+    </aiplugs-nav-item>
+    <aiplugs-nav-items>
+        <aiplugs-nav-item>Collections</aiplugs-nav-item>
+    <aiplugs-nav-item>Users</aiplugs-nav-item>
+        <aiplugs-nav-item>App Settings</aiplugs-nav-item>
+    </aiplugs-nav-items>
+    <div class="flex"></div>
+    <aiplugs-nav-item slot="bottom" icon="https://avatars2.githubusercontent.com/u/1011232?s=32&u=332a5b77904556e83686f16105a3355f46c82292&v=4">
+        iwate
+    </aiplugs-nav-item>
+</aiplugs-nav>
+<aiplugs-blade label="Sample">
+    <form id="list" method="GET" class="flex flex-column">
+        <aiplugs-actions>
+            <button class="btn">Button</button>
+            <button class="btn primary">Button</button>
+            <button class="btn block">Button</button>
+            <span class="space"></span>
+            <button type="button" id="open-dialog" class="btn block primary">Button</button>
+            <aiplugs-dialog open="#open-dialog">
+                <p>本当に削除しますか？</p>
+                <button name="remove" for="list" type="submit" class="btn">Yes</button>
+                <button class="btn primary block">No</button>
+            </aiplugs-dialog>
+        </aiplugs-actions>
+        <div class="flex" style="padding:0 24px; overflow-y: scroll;">
+            @*
+            <aiplugs-input 
+                label="ユーザーネーム"
+                name="Username"
+                pattern="^[a-zA-Z0-9]+$" 
+                max-length="10"
+                description="登録するユーザ名です。半角英数字のみ使用可能です。"
+                required
+                unique
+                ajax=@ajax>
+            </aiplugs-input>
+            <aiplugs-input 
+                type="email"
+                label="メールアドレス"
+                name="Email"
+                required>
+            </aiplugs-input>
+            <aiplugs-input 
+                type="password"
+                label="パスワード"
+                name="Password" 
+                pattern="^[a-zA-Z0-9]+$" 
+                pattern-error-message="{0}は半角英数字のみ使用可能です。"
+                required>
+            </aiplugs-input>
+            <aiplugs-input 
+                label="ユーザー"
+                name="Other"
+                ajax=@ajax>
+            </aiplugs-input>
+            <aiplugs-input 
+                type="date"
+                label="誕生日"
+                name="Birthday">
+            </aiplugs-input>
+            <aiplugs-input 
+                type="number"
+                label="整数"
+                name="Integer"
+                step="1"
+                min="0"
+                max="10">
+            </aiplugs-input>
+            <aiplugs-input 
+                type="number"
+                label="浮動小数点"
+                name="Float"
+                step="0.01">
+            </aiplugs-input>
+            <aiplugs-checkbox
+                label="チェックボックス"
+            ></aiplugs-checkbox>
+            <aiplugs-select label="セレクト1" name="Select1" selection=@selection1 required description="選択肢から選んでください。"></aiplugs-select>
+            <aiplugs-select label="セレクト2" name="Select2" selection=@selection2 required></aiplugs-select>
+            <aiplugs-select label="セレクト3" name="Select3" selection=@selection3 multiple min-length="3"></aiplugs-select>
+            <aiplugs-select label="セレクト4" name="Select4" selection=@selection4 multiple min-length="3"></aiplugs-select>
+            <aiplugs-textarea label="テキストエリア" name="Textarea" placeholder="This is free note" description="自由項目です。" required></aiplugs-textarea>
+            <aiplugs-code label="コード" name="Code" description="コードコード" required lang="html" Value=@code>
+                <template>
+                    <aiplugs-blade label="Editor">
+                        <aiplugs-actions>
+                            <button class="btn primary" aiplugs-is="aiplugs-code::close">Close</button>
+                            <button class="btn" aiplugs-is="aiplugs-code::cancel">Cancel</button>
+                        </aiplugs-actions>
+                        <aiplugs-tinymce value=@code aiplugs-is="aiplugs-code::editor"></aiplugs-tinymce>
+                    </aiplugs-blade>
+                </template>
+            </aiplugs-code>
+            <aiplugs-code label="コード" name="Code2" description="コードコード" required lang="html" Value=@code>
+                <template>
+                    <aiplugs-blade label="Editor">
+                        <aiplugs-actions>
+                            <button class="btn primary" aiplugs-is="aiplugs-code::close">Close</button>
+                            <button class="btn" aiplugs-is="aiplugs-code::cancel">Cancel</button>
+                        </aiplugs-actions>
+                        <aiplugs-monaco value=@code aiplugs-is="aiplugs-code::editor"></aiplugs-monaco>
+                    </aiplugs-blade>
+                </template>
+            </aiplugs-code>
+            <aiplugs-dictionary name="Dict" label="ディクショナリ" description="ディクショナリです。" value=@dict pattern-key="^[a-z]+$"></aiplugs-dictionary>
+            *@
+            <aiplugs-tag name="Tag" label="タグ" description="たぐです。" selection=@tags value=@tagValue ignore-case max-length="4" min-length="3"></aiplugs-tag>
+            @*
+            <aiplugs-tag name="Tag2" label="タグ2" description="たぐです。" required pattern="^[a-z]+$" ignore-case></aiplugs-tag>
+            *@
+            <aiplugs-array name="Array1" label="Array1"  description="配列です">
+                <template>
+                    <aiplugs-array-item label="Array1">
+                        <aiplugs-input name="Array1[].Input" label="Input1" description="hoge"></aiplugs-input>
+                        <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="hoge"></aiplugs-checkbox>
+                        <aiplugs-array name="Array2" label="Array2"  description="配列です">
+                            <template>
+                                <aiplugs-array-item label="Array2">
+                                    <aiplugs-input name="Array2[].Input" label="Input2"></aiplugs-input>
+                                </aiplugs-array-item>
+                            </template>
+                        </aiplugs-array>
+                    </aiplugs-array-item>
+                </template>
+                <aiplugs-array-item label="Array1" index="0">
+                    <aiplugs-input name="Array1[].Input" label="Input1"  description="hoge"></aiplugs-input>
+                    <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="hoge"></aiplugs-checkbox>
+                    <aiplugs-array name="Array2" label="Array2"  description="配列です">
+                        <template>
+                            <aiplugs-array-item label="Array2">
+                                <aiplugs-input name="Array2[].Input" label="Input2"  description="hoge"></aiplugs-input>
+                            </aiplugs-array-item>
+                        </template>
+                    </aiplugs-array>
+                </aiplugs-array-item>
+            </aiplugs-array>
+        </div>
+    </form>
+</aiplugs-blade>
+<div id="preview"></div>
