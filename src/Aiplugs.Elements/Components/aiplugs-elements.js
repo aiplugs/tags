@@ -4,15 +4,15 @@
     }
     Stimulus.Controller.prototype.parent = function(identifier) {
         const el = this.element.closest('[data-controller="'+identifier+'"]');
-        return this.application.rexolve(el, identifier);
+        return this.application.resolve(el, identifier);
     }
     Stimulus.Controller.prototype.child = function(identifier) {
         const el = this.element.querySelector('[data-controller="'+identifier+'"]');
-        return this.application.rexolve(el, identifier);
+        return this.application.resolve(el, identifier);
     }
     Stimulus.Controller.prototype.children = function(identifier) {
         return Array.from(this.element.querySelectorAll('[data-controller="'+identifier+'"]'))
-                    .map(el => this.application.rexolve(el, identifier));
+                    .map(el => this.application.resolve(el, identifier));
     }
     Stimulus.Controller.prototype.debounce = function(code, dt, callback) {
         if (!this.__debounce) this.__debounce = {};
