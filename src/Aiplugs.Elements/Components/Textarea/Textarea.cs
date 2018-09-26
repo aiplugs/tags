@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-textarea")]
-    public class AiplugsTextarea : BaseInputTagHelper
+    public class AiplugsTextarea : AiplugsField
     {
         public override string ElementName => "aiplugs-textarea";
         public string Placeholder { get; set; }

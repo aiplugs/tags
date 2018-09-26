@@ -1,11 +1,3 @@
-[data-controller="aiplugs-list"] > tbody > tr > td > button {
-    background: blue;
-    width: 3.2rem;
-    height: 3.2rem;
-}
-[data-controller="aiplugs-list"] > tbody > tr[data-aiplugs-list-item-checked="true"] > td > button {
-    background: red;
-}
 .aiplugs-list {
     width: 100%;
     height: 100%;
@@ -76,16 +68,16 @@
     transition: all linear 0.15s;
     cursor: pointer;
 }
-.aiplugs-list__item--checked {
+.aiplugs-list__item.--checked {
     background-color: var(--color-divider);
 }
-.aiplugs-list__item--selected {
+.aiplugs-list__item.--selected {
     background-color: var(--color-secondary);
 }
-.aiplugs-list__item--checked .aiplugs-list__item-selector {
+.aiplugs-list__item.--checked .aiplugs-list__item-selector {
     border-color: var(--color-primary);
 }
-.aiplugs-list__item--checked .aiplugs-list__item-selector::after {
+.aiplugs-list__item.--checked .aiplugs-list__item-selector::after {
     position: absolute;
     display: block;
     box-sizing: border-box;

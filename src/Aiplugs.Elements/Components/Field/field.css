@@ -1,0 +1,23 @@
+.aiplugs-field {
+    display: flex;
+    flex-direction: column;
+}
+.aiplugs-field__header {
+    font-size: 1.6rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-secondary);
+    transition: color linear .25s;
+}
+.aiplugs-field__message {
+    margin-top: 0.4rem;
+    padding: 0 1.2rem;
+}
+.aiplugs-field:hover .aiplugs-field__header label {
+    color: var(--color-text-primary);
+}
+.aiplugs-field:focus-within .aiplugs-field__header label {
+    color: var(--color-primary);
+}
+.aiplugs-field.--invalid .aiplugs-field__header label {
+    color: var(--color-primary);
+}

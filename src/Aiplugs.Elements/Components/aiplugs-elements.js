@@ -2,13 +2,19 @@
     Stimulus.Application.prototype.resolve = function(element, identifier) {
         return this.application.getControllerForElementAndIdentifier(element, identifier);
     }
-    Stimulus.Controller.prototype.parent = function(identifier) {
-        const el = this.element.closest('[data-controller="'+identifier+'"]');
+    Stimulus.Application.prototype.closestRoot = function(element, identifier) {
+        const el = element.closest('[data-controller="'+identifier+'"]');
         return this.application.resolve(el, identifier);
     }
-    Stimulus.Controller.prototype.child = function(identifier) {
-        const el = this.element.querySelector('[data-controller="'+identifier+'"]');
+    Stimulus.Application.prototype.closestLeaf = function(element, identifier) {
+        const el = element.querySelector('[data-controller="'+identifier+'"]');
         return this.application.resolve(el, identifier);
+    }
+    Stimulus.Controller.prototype.parent = function(identifier) {
+        return this.application.closestRoot(this.element, identifier);
+    }
+    Stimulus.Controller.prototype.child = function(identifier) {
+        return this.application.closestLeaf(this.element, identifier);
     }
     Stimulus.Controller.prototype.children = function(identifier) {
         return Array.from(this.element.querySelectorAll('[data-controller="'+identifier+'"]'))

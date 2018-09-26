@@ -1,5 +1,6 @@
 .aiplugs-info__switch {
     cursor: pointer;
+    user-select: none;
     margin-left: 0.4rem;
 }
 .aiplugs-info__detail  {

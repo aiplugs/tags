@@ -3,7 +3,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Aiplugs.Elements
 {
-    public abstract class BaseInputTagHelper : TagHelper
+    public abstract class AiplugsField : TagHelper
     {
         public abstract string ElementName { get; }
         public string Id { get; set; }
@@ -17,7 +17,7 @@ namespace Aiplugs.Elements
         }
 
         protected readonly IStringLocalizer<SharedResource> Localizer;
-        public BaseInputTagHelper(IStringLocalizer<SharedResource> localizer)
+        public AiplugsField(IStringLocalizer<SharedResource> localizer)
         {
             Localizer = localizer;
         }
@@ -28,7 +28,7 @@ namespace Aiplugs.Elements
             output.Attributes.Merge("class", ElementName);
             output.Attributes.Add("data-controller", ElementName);
 
-            output.Html($"<div class=\"{ElementName}__header\" data-controller=\"aiplugs-info\">");
+            output.Html($"<div class=\"aiplugs-field__header\" data-controller=\"aiplugs-info\">");
         
             output.Tag("label", null, () => {
 

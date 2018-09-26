@@ -3,7 +3,7 @@ AiplugsElements.register("aiplugs-info", class extends Stimulus.Controller {
         return ['detail'];
     }
     update(){
-        this.descriptionTarget.classList.toggle("--visible", this.visible);
+        this.detailTarget.classList.toggle("--visible", this.visible);
     }
     toggle() {
         this.visible = !this.visible;
@@ -16,4 +16,7 @@ AiplugsElements.register("aiplugs-info", class extends Stimulus.Controller {
         this.update();
     }
 });
+
+
+
 

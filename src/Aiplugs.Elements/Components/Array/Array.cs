@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-array")]
-    public class AiplugsArray : BaseInputTagHelper
+    public class AiplugsArray : AiplugsField
     {
         public override string ElementName => "aiplugs-array";
 

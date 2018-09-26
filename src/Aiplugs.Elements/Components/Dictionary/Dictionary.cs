@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-dictionary")]
-    public class Dictionary : BaseInputTagHelper
+    public class Dictionary : AiplugsField
     {
         public override string ElementName => "aiplugs-dictionary";
         public string PatternKey { get; set; }
