@@ -12,6 +12,7 @@ namespace Aiplugs.Elements
         {
             var id = Guid.NewGuid().ToString();
             output.TagName = "div";
+            output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Merge("class", "aiplugs-tinymce");
             output.Attributes.Add("data-controller", "aiplugs-tinymce");
 

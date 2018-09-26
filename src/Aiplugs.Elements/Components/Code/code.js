@@ -28,10 +28,10 @@ AiplugsElements.register("aiplugs-code", class extends Stimulus.Controller {
         let editor = blade.querySelector('.aiplugs-code__editor');
         if (editor) {
             if (editor.classList.contains("aiplugs-tinymce")) {
-                editor = $$(editor, "aiplugs-tinymce");
+                editor = this.application.resolve(editor, "aiplugs-tinymce");
             }
             else if (editor.classList.contains("aiplugs-monaco")) {
-                editor = $$(editor, "aiplugs-monaco");
+                editor = this.application.resolve(editor, "aiplugs-monaco");
             }
         }
         if (editor == null) {

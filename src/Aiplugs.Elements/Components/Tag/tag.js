@@ -106,7 +106,7 @@ AiplugsElements.register("aiplugs-tag", class extends Stimulus.Controller {
         });
     }
     get items() {
-        return this.itemTargets.map(item => $$(item, "aiplugs-tag-item"));
+        return this.itemTargets.map(item => this.application.resolve(item, "aiplugs-tag-item"));
     }
     get focusLast() {
         return this.data.get("focus-last") === "true";

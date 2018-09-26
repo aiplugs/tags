@@ -53,7 +53,7 @@ AiplugsElements.register("aiplugs-dictionary", class extends Stimulus.Controller
         this.message = messages.filter((_, i) => _ != null && messages.indexOf(_) === i).join("<br>");
     }
     get items() {
-        return this.itemTargets.map(item => $$(item, "aiplugs-dictionary-item"));
+        return this.itemTargets.map(item => this.application.resolve(item, "aiplugs-dictionary-item"));
     }
     set message(value) {
         this.messageTarget.innerHTML = value;
@@ -85,7 +85,7 @@ AiplugsElements.register("aiplugs-dictionary-item", class extends Stimulus.Contr
         }
     }
     remove() {
-        const dict = $$closest(this.element, "aiplugs-dictionary");
+        const dict = this.application.closestRoot(this.element, "aiplugs-dictionary");
         this.element.remove();
         dict.validate();
     }

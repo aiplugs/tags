@@ -26,10 +26,11 @@ namespace Aiplugs.Elements
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             var id = GetDomId();
             var datalistId = "suggestion-" + id ?? Guid.NewGuid().ToString(); 
-            var name = Name != null ? Name + "[]" : null;
+            var name = Name.ToArraySuffix();
 
             output.Attributes.Add("data-aiplugs-tag-ignore-case", IgnoreCase.ToString().ToLower());
             if (Ajax != null) 
@@ -45,15 +46,8 @@ namespace Aiplugs.Elements
                 output.Attributes.Add("data-aiplugs-tag-ajax-label", Ajax.Label ?? "label");
                 output.Attributes.Add("data-aiplugs-tag-ajax-value", Ajax.Value ?? "value");
             }
-
-            output.Tag("p", () => {
-                output.Attr("class", "aiplugs-tag__message field-validation-valid");
-                if (Name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", Name + "[]");
-                }
-            });
+            
+            RenderFieldFooter(context, output, name);
 
             output.Tag("div", () => {
                 output.Attr("class", "aiplugs-tag__values");

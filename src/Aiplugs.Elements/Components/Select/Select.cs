@@ -23,6 +23,7 @@ namespace Aiplugs.Elements
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             var type = GetInputType();
 
@@ -38,7 +39,7 @@ namespace Aiplugs.Elements
         public void RenderSelect(TagHelperContext context, TagHelperOutput output)
         {
             var id = GetDomId();
-            var name  = Name != null ? Multiple ? Name + "[]" : Name : null;
+            var name  = Multiple ? Name.ToArraySuffix() : Name;
             var selection = Selection ?? new SelectListItem[0];
 
             output.Tag("select", ()=> {
@@ -89,34 +90,14 @@ namespace Aiplugs.Elements
                 }
             });
 
-            output.Tag("p", () => {
-
-                output.Attr("class", "aiplugs-select__message field-validation-valid");
-                
-                if (name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", name);
-                }
-
-            });
+            RenderFieldFooter(context, output, name);
         }
         public void RenderCheckbox(TagHelperContext context, TagHelperOutput output)
         {
             var id = GetDomId();
             var selection = Selection ?? new SelectListItem[0];
 
-            output.Tag("p", () => {
-
-                output.Attr("class", "aiplugs-select__message field-validation-valid");
-                
-                if (Name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", Name + "[]");
-                }
-                
-            });
+            RenderFieldFooter(context, output, Name?.ToArraySuffix());
 
             foreach(var item in selection)
             {
@@ -130,7 +111,7 @@ namespace Aiplugs.Elements
                     output.Attr("data-val", "true");
 
                     if (Name != null)
-                        output.Attr("name", Name + "[]");
+                        output.Attr("name", Name?.ToArraySuffix());
                     
                     if (item.Selected)
                         output.Html(" checked ");
@@ -170,17 +151,7 @@ namespace Aiplugs.Elements
             var id = GetDomId();
             var selection = Selection ?? new SelectListItem[0];
 
-            output.Tag("p", () => {
-
-                output.Attr("class", "aiplugs-select__message field-validation-valid");
-                
-                if (Name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", Name);
-                }
-                
-            });
+            RenderFieldFooter(context, output, Name);
 
             foreach(var item in selection)
             {

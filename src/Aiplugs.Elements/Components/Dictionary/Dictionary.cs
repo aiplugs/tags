@@ -20,6 +20,7 @@ namespace Aiplugs.Elements
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             output.Attributes.Add("data-aiplugs-dictionary-regex-key", Localizer.MsgValPatternKey(Label, PatternKey));
             output.Attributes.Add("data-aiplugs-dictionary-regex-value", Localizer.MsgValPatternValue(Label, PatternValue));

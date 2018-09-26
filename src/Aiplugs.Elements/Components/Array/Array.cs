@@ -18,6 +18,7 @@ namespace Aiplugs.Elements
             var content = await output.GetChildContentAsync();
 
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             output.Html("<div class=\"aiplugs-array__items\" data-target=\"aiplugs-array.items\">");
             output.Content.AppendHtml(content);

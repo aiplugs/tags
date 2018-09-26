@@ -29,6 +29,7 @@ namespace Aiplugs.Elements
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             var id = GetDomId();
             var type = (Type??"text").ToLower().Trim();
@@ -137,14 +138,7 @@ namespace Aiplugs.Elements
                 });
             }
             
-            output.Tag("p", () => {
-                output.Attr("class", "aiplugs-input__message field-validation-valid");
-                if (Name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", Name);
-                }
-            });
+            RenderFieldFooter(context, output, Name);
         }
     }
     public class Ajax 

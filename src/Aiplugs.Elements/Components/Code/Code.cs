@@ -26,6 +26,7 @@ namespace Aiplugs.Elements
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
+            RenderFieldHeader(context, output);
 
             var id = GetDomId();
 
@@ -68,14 +69,7 @@ namespace Aiplugs.Elements
 
             output.Html("<button type=\"button\" class=\"fas aiplugs-code__toggle\" data-action=\"aiplugs-code#toggleView\"></button>");
 
-            output.Tag("p", () => {
-                output.Attr("class", "aiplugs-code__message field-validation-valid");
-                if (Name != null)
-                {
-                    output.Attr("data-valmsg-replace", "true");
-                    output.Attr("data-valmsg-for", Name);
-                }
-            });
+            RenderFieldFooter(context, output, Name);
         }
     }
 }

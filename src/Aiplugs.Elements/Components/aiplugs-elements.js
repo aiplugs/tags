@@ -1,14 +1,14 @@
 (function(global){
     Stimulus.Application.prototype.resolve = function(element, identifier) {
-        return this.application.getControllerForElementAndIdentifier(element, identifier);
+        return this.getControllerForElementAndIdentifier(element, identifier);
     }
     Stimulus.Application.prototype.closestRoot = function(element, identifier) {
         const el = element.closest('[data-controller="'+identifier+'"]');
-        return this.application.resolve(el, identifier);
+        return this.resolve(el, identifier);
     }
     Stimulus.Application.prototype.closestLeaf = function(element, identifier) {
         const el = element.querySelector('[data-controller="'+identifier+'"]');
-        return this.application.resolve(el, identifier);
+        return this.resolve(el, identifier);
     }
     Stimulus.Controller.prototype.parent = function(identifier) {
         return this.application.closestRoot(this.element, identifier);

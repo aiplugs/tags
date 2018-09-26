@@ -12,6 +12,7 @@ namespace Aiplugs.Elements
         {
             var id = Guid.NewGuid().ToString();
             output.TagName = "div";
+            output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("id", id);
             output.Attributes.Merge("class", "aiplugs-monaco");
             output.Attributes.Add("data-controller", "aiplugs-monaco");
