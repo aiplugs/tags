@@ -3,7 +3,11 @@
         "outputFileName": "wwwroot/lib/aiplugs-elements/css/style.css",
         "inputFiles": [
             "Components/**/*.css"
-        ]
+        ],
+        "minify": {
+            "enabled": false,
+            "renameLocals": false
+        }
     },
     {
         "outputFileName": "wwwroot/lib/aiplugs-elements/js/script.js",
