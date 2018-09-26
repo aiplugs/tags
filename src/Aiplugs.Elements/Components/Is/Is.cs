@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement(Attributes="aiplugs-is")]
-    public class AiplugsIsTagHelper : TagHelper
+    public class AiplugsIs : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

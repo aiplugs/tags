@@ -6,12 +6,12 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-code")]
-    public class CodeTagHelper : BaseInputTagHelper
+    public class AiplugsCode : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-code";
         public string Lang { get; set; }
         public string Value { get; set; }
-        public CodeTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsCode(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

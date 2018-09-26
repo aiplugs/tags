@@ -4,8 +4,8 @@ using Microsoft.Extensions.Localization;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Input")]
-    public class InputTagHelper : BaseInputTagHelper
+    [HtmlTargetElement("aiplugs-input")]
+    public class AiplugsInput : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-input";
         public string Type { get; set; }
@@ -22,7 +22,7 @@ namespace Aiplugs.Elements
         public bool Unique { get; set; }
         public bool IgnoreCase { get; set; }
         public Ajax Ajax { get; set;}
-        public InputTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsInput(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

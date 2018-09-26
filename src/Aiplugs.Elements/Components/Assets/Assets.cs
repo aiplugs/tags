@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Assets")]
-    public class AssetsTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-assets")]
+    public class AiplugsAssets: TagHelper
     {
         private readonly IUrlHelperFactory  _urlHelperFactory;
         private readonly IActionContextAccessor  _actionContextAccesor;
-        public AssetsTagHelper(IUrlHelperFactory urlHelperFactory, IActionContextAccessor  actionContextAccesor)
+        public AiplugsAssets(IUrlHelperFactory urlHelperFactory, IActionContextAccessor  actionContextAccesor)
         {
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccesor = actionContextAccesor;
@@ -60,8 +60,8 @@ namespace Aiplugs.Elements
         private string _googleFontNoto => GoogleFontNotoJa ? "Noto+Sans" : null;
         private string _googleFontNotoJa => GoogleFontNotoJa ? "Noto+Sans+JP" : null;
         private string _googleFontNotoKr => GoogleFontNotoKr ? "Noto+Sans+KR" : null;
-        private string _googleFontMaterialIcon => GoogleFontRobot ? "Material+Icon" : null;
-        private string[] _googleFont => new [] {"Comfortaa", _googleFontRobot,_googleFontNoto,_googleFontNotoJa,_googleFontNotoKr,_googleFontMaterialIcon}.Where(_ => _ != null).ToArray();
+        private string _googleFontMaterialIcons => GoogleFontRobot ? "Material+Icons" : null;
+        private string[] _googleFont => new [] {"Comfortaa", _googleFontRobot,_googleFontNoto,_googleFontNotoJa,_googleFontNotoKr,_googleFontMaterialIcons}.Where(_ => _ != null).ToArray();
         private string _googleFontUrl => $"https://fonts.googleapis.com/css?family={string.Join("|", _googleFont)}";
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

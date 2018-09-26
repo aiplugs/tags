@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-tinymce")]
-    public class TinyMCETagHelper : TagHelper
+    public class AiplugsTinyMCE : TagHelper
     {
         public string Value { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)

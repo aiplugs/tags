@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-List-Item")]
-    public class ListItemTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-list-item")]
+    public class AiplugsListItem : TagHelper
     {
         public string Name {get; set;}
         public string Item { get; set; }

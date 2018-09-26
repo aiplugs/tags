@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-select")]
-    public class SelectTagHelper : BaseInputTagHelper
+    public class AiplugsSelect : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-select";
         public string Type { get; set; } 
@@ -16,7 +16,7 @@ namespace Aiplugs.Elements
         public int? MinLength { get; set; }
         public IEnumerable<SelectListItem> Selection { get; set; }
 
-        public SelectTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsSelect(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

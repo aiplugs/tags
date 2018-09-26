@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Blade")]
-    public class BladeTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-blade")]
+    public class AiplugsBlade : TagHelper
     {
         public string Label { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)

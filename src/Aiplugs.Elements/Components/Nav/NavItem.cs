@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Razor;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Nav-Item")]
-    public class NavItemTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-nav-item")]
+    public class AiplugsNavItem : TagHelper
     {
         private readonly IUrlHelperFactory  _urlHelperFactory;
         private readonly IActionContextAccessor  _actionContextAccesor;
         public string Icon { get; set; }
         public string Href { get; set; }
-        public NavItemTagHelper(IUrlHelperFactory urlHelperFactory, IActionContextAccessor  actionContextAccesor)
+        public AiplugsNavItem(IUrlHelperFactory urlHelperFactory, IActionContextAccessor  actionContextAccesor)
         {
             _urlHelperFactory = urlHelperFactory;
             _actionContextAccesor = actionContextAccesor;

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-tag")]
-    public class TagTagHelper : BaseInputTagHelper
+    public class AiplugsTag : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-tag";
         public string Pattern { get; set; }
@@ -19,7 +19,7 @@ namespace Aiplugs.Elements
         public bool IgnoreCase { get; set; }
         public Ajax Ajax { get; set;}
         public IEnumerable<SelectListItem> Selection { get; set; }
-        public TagTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsTag(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

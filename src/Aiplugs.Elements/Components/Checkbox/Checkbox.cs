@@ -4,11 +4,11 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-checkbox")]
-    public class CheckboxTagHelper : BaseInputTagHelper
+    public class AiplugsCheckbox : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-checkbox";
         public bool Checked { get; set; }
-        public CheckboxTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsCheckbox(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
         public override void Process(TagHelperContext context, TagHelperOutput output)

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-monaco")]
-    public class MonacoTagHelper : TagHelper
+    public class AiplugsMonaco : TagHelper
     {
         public string Value { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)

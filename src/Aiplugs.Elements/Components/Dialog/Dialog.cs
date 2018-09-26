@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Dialog")]
-    public class DialogTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-dialog")]
+    public class AiplugsDialog : TagHelper
     {
         public string Open { get; set; }
         public string Close { get; set; }

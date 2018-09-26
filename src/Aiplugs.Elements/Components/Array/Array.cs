@@ -5,11 +5,11 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-array")]
-    public class ArrayTagHelper : BaseInputTagHelper
+    public class AiplugsArray : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-array";
 
-        public ArrayTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsArray(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

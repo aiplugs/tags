@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-List-Column")]
-    public class ListColumnTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-list-column")]
+    public class AiplugsListColumn : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

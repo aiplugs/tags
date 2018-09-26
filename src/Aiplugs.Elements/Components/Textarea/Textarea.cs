@@ -4,12 +4,12 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-textarea")]
-    public class TextareaTagHelper : BaseInputTagHelper
+    public class AiplugsTextarea : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-textarea";
         public string Placeholder { get; set; }
         public string Value { get; set; }
-        public TextareaTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsTextarea(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

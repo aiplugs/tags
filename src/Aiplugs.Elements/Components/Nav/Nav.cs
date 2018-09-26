@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-Nav")]
-    public class NavTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-nav")]
+    public class AiplugsNav : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

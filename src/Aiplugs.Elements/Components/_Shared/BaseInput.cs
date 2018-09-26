@@ -28,7 +28,7 @@ namespace Aiplugs.Elements
             output.Attributes.Merge("class", ElementName);
             output.Attributes.Add("data-controller", ElementName);
 
-            output.Html($"<div class=\"{ElementName}__header\">");
+            output.Html($"<div class=\"{ElementName}__header\" data-controller=\"aiplugs-info\">");
         
             output.Tag("label", null, () => {
 
@@ -42,12 +42,9 @@ namespace Aiplugs.Elements
             });
             
             if (!string.IsNullOrEmpty(Description))
-                output.Html($"<i class=\"fa fa-info-circle {ElementName}__info\" data-action=\"click->{ElementName}#toggleDescription\"></i>");
-            
-            output.Tag("p", () => {
-                output.Attr("class", $"{ElementName}__description");
-                output.Attr("data-target", $"{ElementName}.description");
-            }, Description);
+                output.Html($"<i class=\"aiplugs-info__switch fa fa-info-circle\" data-action=\"click->aiplugs-info#toggle\"></i>");
+
+            output.Html($"<p class=\"aiplugs-info__detail\" data-target=\"aiplugs-info.detail\">{Description}</p>");
             
             output.Html("</div>");
         }

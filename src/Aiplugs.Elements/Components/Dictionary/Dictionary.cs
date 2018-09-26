@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Aiplugs.Elements
 {
     [HtmlTargetElement("aiplugs-dictionary")]
-    public class DictionaryTagHelper : BaseInputTagHelper
+    public class Dictionary : BaseInputTagHelper
     {
         public override string ElementName => "aiplugs-dictionary";
         public string PatternKey { get; set; }
@@ -13,7 +13,7 @@ namespace Aiplugs.Elements
         public string PlaceholderKey { get; set; }
         public string PlaceholderValue { get; set; }
         public IDictionary<string, string> Value { get; set; }
-        public DictionaryTagHelper(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public Dictionary(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 

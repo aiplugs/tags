@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement("Aiplugs-List")]
-    public class ListTagHelper : TagHelper
+    [HtmlTargetElement("aiplugs-list")]
+    public class AiplugsList : TagHelper
     {
         public Dictionary<string, string> Labels { get; set; } 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
