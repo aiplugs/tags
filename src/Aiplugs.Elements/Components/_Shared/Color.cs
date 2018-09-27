@@ -5,9 +5,9 @@ namespace Aiplugs.Elements
 {
     public enum Color
     {
-        Default,
-        Primary,
-        Accent,
-        Warning
+        @default,
+        primary,
+        accent,
+        warning
     }
 }

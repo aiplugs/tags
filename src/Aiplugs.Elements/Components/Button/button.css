@@ -1,4 +1,4 @@
-.btn {
+.aiplugs-button {
     display: inline-block;
     padding: 0.8rem 1.6rem;
     outline: none;
@@ -11,46 +11,46 @@
     user-select: none;
     transition: all linear 0.125s;
 }
-.btn:hover {
+.aiplugs-button:hover {
     cursor: pointer;
     color: var(--color-text-primary);
 }
-.btn:active {
+.aiplugs-button:active {
     color: var(--color-text-secondary);
 }
 
-.btn.primary {
+.aiplugs-button.--primary {
     color: var(--color-primary);
 }
-.btn.primary:hover {
+.aiplugs-button.--primary:hover {
     color: var(--color-accent);
 }
-.btn.primary:active {
+.aiplugs-button.--primary:active {
     color: var(--color-primary);
 }
 
-.btn.block {
+.aiplugs-button.--block {
     color: var(--color-text-secondary);
     background: var(--color-mono);
 }
-.btn.block:hover {
+.aiplugs-button.--block:hover {
     color: white;
     background: var(--color-text-secondary);
 }
-.btn.block:active {
+.aiplugs-button.--block:active {
     color: var(--color-text-secondary);
     border-color: var(--color-text-secondary);
     background: transparent;
 }
 
-.btn.block.primary {
+.aiplugs-button.--block.--primary {
     color: white;
     background: var(--color-primary);
 }
-.btn.block.primary:hover {
+.aiplugs-button.--block.--primary:hover {
     background: var(--color-accent);
 }
-.btn.block.primary:active {
+.aiplugs-button.--block.--primary:active {
     color: var(--color-primary);
     border-color: var(--color-primary);
     background: transparent;

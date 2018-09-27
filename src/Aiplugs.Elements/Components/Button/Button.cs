@@ -10,27 +10,30 @@ namespace Aiplugs.Elements
     {
         public string ElementName => "aiplugs-button";
 
-        public ButtonStyle Style { get; set; } = ButtonStyle.Default;
-        public ButtonSize Size { get; set; } = ButtonSize.Default;
-        public Color Color { get; set; } = Color.Default;
+        public ButtonStyle Looks { get; set; } = ButtonStyle.@default;
+        public ButtonSize Size { get; set; } = ButtonSize.@default;
+        public Color Color { get; set; } = Color.@default;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.Attributes.Merge("class", ElementName);
+            var style = Looks != ButtonStyle.@default ? "--" + Looks.ToString().ToLower() : "";
+            var size =  Size  != ButtonSize.@default  ? "--" + Size.ToString().ToLower()  : "";
+            var color = Color != Color.@default       ? "--" + Color.ToString().ToLower() : "";
+            output.Attributes.Merge("class", $"{ElementName} {style} {size} {color}");
         }
     }
 
     public enum ButtonSize
     {
-        Default,
-        Small,
-        Large
+        @default,
+        small,
+        large,
+        full
     }
 
     public enum ButtonStyle
     {
-        Default,
-        Block,
-        Ghost
+        @default,
+        block
     }
 }
