@@ -12,10 +12,11 @@ namespace Aiplugs.Elements
             output.TagName = "section";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Merge("class", "aiplugs-blade");
+            output.Attributes.Add("data-controller", "aiplugs-blade");
 
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml("<button class=\"aiplugs-blade-expand far\"></button>");
-            output.Content.AppendHtml($"<header>{Label??""}</header>");
+            output.Html("<button class=\"aiplugs-blade__expand far\" data-action=\"aiplugs-blade#toggle\"></button>");
+            output.Html($"<header class=\"aiplugs-blade__header\">{Label??""}</header>");
             output.Content.AppendHtml(content);
         }
     }
