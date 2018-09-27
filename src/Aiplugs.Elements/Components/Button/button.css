@@ -28,6 +28,15 @@
 .aiplugs-button.--primary:active {
     color: var(--color-primary);
 }
+.aiplugs-button.--warning {
+    color: var(--color-error);
+}
+.aiplugs-button.--warning:hover {
+    color: var(--color-error);
+}
+.aiplugs-button.--warning:active {
+    color: var(--color-text-secondary);
+}
 
 .aiplugs-button.--block {
     color: var(--color-text-secondary);
@@ -53,5 +62,17 @@
 .aiplugs-button.--block.--primary:active {
     color: var(--color-primary);
     border-color: var(--color-primary);
+    background: transparent;
+}
+.aiplugs-button.--block.--warning {
+    color: white;
+    background: var(--color-error);
+}
+.aiplugs-button.--block.--warning:hover {
+    background: var(--color-error);
+}
+.aiplugs-button.--block.--warning:active {
+    color: var(--color-error);
+    border-color: var(--color-error);
     background: transparent;
 }
