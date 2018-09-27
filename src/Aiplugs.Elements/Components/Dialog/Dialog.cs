@@ -8,21 +8,27 @@ namespace Aiplugs.Elements
     public class AiplugsDialog : TagHelper
     {
         public string Open { get; set; }
-        public string Close { get; set; }
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "template";
-            output.Attributes.Add("class", "aiplugs-dialog-template");
-            output.Attributes.Add("data-open", Open);
-            output.Attributes.Add("data-close", Close);
+            output.Attributes.Add("data-controller", "aiplugs-dialog-template");
+            output.Attributes.Add("data-aiplugs-dialog-template-open", Open);
 
-            var id = Guid.NewGuid().ToString();
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml($"<div class=\"aiplugs-dialog\" id=\"{id}\">");
-            output.Content.AppendHtml($"<div class=\"aiplugs-dialog-content\">");
+            output.HtmlLine($"<div class=\"aiplugs-dialog\" data-controller=\"aiplugs-dialog\">");
+            output.HtmlLine($"<div class=\"aiplugs-dialog__content\">");
             output.Content.AppendHtml(content);
-            output.Content.AppendHtml("</div>");
-            output.Content.AppendHtml("</div>");
+            output.HtmlLine("</div>");
+            output.HtmlLine("</div>");
+        }
+    }
+
+    [HtmlTargetElement(Attributes="[behave=aiplugs-dialog-close]", ParentTag="aiplugs-dialog")]
+    public class AiplugsDialogClose : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.Attributes.Add("data-action", "aiplugs-dialog#close");
         }
     }
 }

@@ -1,7 +1,6 @@
 .aiplugs-dialog {
     position: absolute;
     background: rgba(0, 0, 0, 0.15);
-    border-radius: 0.3rem;
     width: 100vw;
     height: 100vh;
     top:0;
@@ -12,10 +11,8 @@
     align-items: center;
     justify-content: center;
 }
-.aiplugs-dialog-content {
+.aiplugs-dialog__content {
     background: white;
     padding: 1.6rem;
-}
-.aiplugs-dialog-content p {
-    margin-bottom: 1.6rem;
+    border-radius: 0.3rem;
 }
