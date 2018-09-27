@@ -22,13 +22,4 @@ namespace Aiplugs.Elements
             output.HtmlLine("</div>");
         }
     }
-
-    [HtmlTargetElement(Attributes="[behave=aiplugs-dialog-close]", ParentTag="aiplugs-dialog")]
-    public class AiplugsDialogClose : TagHelper
-    {
-        public override void Process(TagHelperContext context, TagHelperOutput output)
-        {
-            output.Attributes.Add("data-action", "aiplugs-dialog#close");
-        }
-    }
 }

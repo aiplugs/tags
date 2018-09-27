@@ -70,8 +70,10 @@
             <button type="button" id="open-dialog" is="aiplugs-button" looks="block" color="primary">Button</button>
             <aiplugs-dialog open="#open-dialog">
                 <p>本当に削除しますか？</p>
+                <div>
                 <button name="remove" for="list" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog-close">Yes</button>
                 <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog-close">No</button>
+                </div>
             </aiplugs-dialog>
         </aiplugs-actions>
         <div class="flex" style="padding:0 24px; overflow-y: scroll;">
