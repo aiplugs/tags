@@ -1,4 +1,4 @@
-.aiplugs-nav, .aiplugs-nav-items {
+.aiplugs-nav, .aiplugs-nav__items {
     display: flex;
     flex-direction: column;
     width: calc(6.4rem + 18rem);
@@ -22,7 +22,7 @@
 
     z-index: -1;  
 }
-.aiplugs-nav-item {
+.aiplugs-nav__item {
     display: flex;
     padding: 8px 0;
     align-items: center;
@@ -36,30 +36,27 @@
     font-size: 1.6rem;
     line-height: 2.4rem;
 }
-.aiplugs-nav-item:hover {
+.aiplugs-nav__item:hover {
     background: rgba(255,255,255,0.15);
 }
-.aiplugs-nav-item > .left {
+.aiplugs-nav__item > .left {
     width: 6.4rem;
     min-width: 6.4rem;
     font-size: 2.4rem;
     display: inline-block;
     text-align: center;
 }
-.aiplugs-nav-item.active {
+.aiplugs-nav__item.--active {
     transition: none;      
     background: var(--color-accent);
 }
-.aiplugs-nav-item > .left > img {
+.aiplugs-nav__item > .left > img {
     width: 3.2rem;
 }
-.aiplugs-nav.fold .aiplugs-nav-item span.right,
-.aiplugs-nav.fold .aiplugs-nav-items {
+.aiplugs-nav.--fold .aiplugs-nav__item span.right,
+.aiplugs-nav.--fold .aiplugs-nav__items {
     display: none;
 }
-.aiplugs-nav.fold {
+.aiplugs-nav.--fold {
     width: 6.4rem;
-}
-.aiplugs-nav > .space {
-    flex: 1;
 }

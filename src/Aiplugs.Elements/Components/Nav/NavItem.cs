@@ -14,6 +14,7 @@ namespace Aiplugs.Elements
         private readonly IActionContextAccessor  _actionContextAccesor;
         public string Icon { get; set; }
         public string Href { get; set; }
+        public bool Active { get; set; }
         public AiplugsNavItem(IUrlHelperFactory urlHelperFactory, IActionContextAccessor  actionContextAccesor)
         {
             _urlHelperFactory = urlHelperFactory;
@@ -25,7 +26,10 @@ namespace Aiplugs.Elements
             var content = await output.GetChildContentAsync();
             output.TagName = "a";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Merge("class", "aiplugs-nav-item");
+            output.Attributes.Merge("class", "aiplugs-nav__item");
+
+            if (Active)
+                output.Attributes.Merge("class", "--active");
             
             if (!string.IsNullOrEmpty(Href))
             {

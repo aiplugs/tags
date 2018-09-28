@@ -9,7 +9,17 @@ namespace Aiplugs.Elements
         {
             output.TagName = "nav";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Add("class", "aiplugs-nav");
+            output.Attributes.Merge("class", "aiplugs-nav");
+            output.Attributes.Add("data-controller", "aiplugs-nav");
+        }
+    }
+
+    [HtmlTargetElement(Attributes="[is=aiplugs-nav-fold]")]
+    public class AiplugsNavFold : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.Attributes.Add("data-action", "aiplugs-nav#toggle");
         }
     }
 }

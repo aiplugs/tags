@@ -9,7 +9,7 @@ namespace Aiplugs.Elements
         {
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Add("class", "aiplugs-nav-items");
+            output.Attributes.Add("class", "aiplugs-nav__items");
         }
     }
 }
