@@ -22,4 +22,21 @@ namespace Aiplugs.Elements
             output.HtmlLine("</div>");
         }
     }
+    [HtmlTargetElement(Attributes="[is=aiplugs-dialog-message]")]
+    public class AiplugsDialogMessage : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.Attributes.Merge("class", "aiplugs-dialog__message");
+        }
+    }
+
+    [HtmlTargetElement(Attributes="[is=aiplugs-dialog-actions]")]
+    public class AiplugsDialogActions : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            output.Attributes.Merge("class", "aiplugs-dialog__actions");
+        }
+    }
 }

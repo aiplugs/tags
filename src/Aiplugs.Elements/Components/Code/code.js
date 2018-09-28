@@ -4,7 +4,7 @@ AiplugsElements.register("aiplugs-code", class extends Stimulus.Controller {
     }
     edit() {
         const target = this.container;
-        const template = this.element.querySelector("template");
+        const template = this.element.querySelector("template:not([data-controller='aiplugs-dialog-template'])");
         const id = this.editorId || (this.editorId = "editor-" + (this.inputTarget.id || (~~(Math.random() * Math.pow(2, 16))).toString(16)));
         const blade = target.querySelector(`#${id}`);
 
@@ -51,15 +51,20 @@ AiplugsElements.register("aiplugs-code", class extends Stimulus.Controller {
                 }
                 blade.remove();
             })
+
         }
 
         if (cancel) {
-            cancel.addEventListener('click', () => {
-                if (editor) {
-                    editor.close();
-                }
-                blade.remove();
-            })
+            const dialog = this.child('aiplugs-dialog-template');
+            dialog.register(cancel, el => {
+                el.querySelector('.aiplugs-code__close-realy').addEventListener('click', () => {
+                    if (editor) {
+                        editor.close();
+                    }
+                    blade.remove();
+                    el.remove();
+                })
+            });  
         }
     }
     update() {

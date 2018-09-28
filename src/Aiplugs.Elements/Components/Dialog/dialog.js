@@ -1,20 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function() {
-//     for (let template of document.querySelectorAll('.aiplugs-dialog-template')) {
-//         const open = template.getAttribute('data-open');
-//         if (open) {
-//             for (let btn of document.querySelectorAll(open)) {
-//                 btn.addEventListener('click', openDialog.bind(null, template));
-//             }
-//         }
-//     }
-//     function openDialog(tempalte) {
-//         const node = tempalte.content.cloneNode(true);
-//         document.body.appendChild(node);
-//     }
-//     function closeDialog(id) {
-
-//     }
-// });
 AiplugsElements.register('aiplugs-dialog-template', class extends Stimulus.Controller {
     initialize() {
         const query = this.opener;
@@ -27,15 +10,18 @@ AiplugsElements.register('aiplugs-dialog-template', class extends Stimulus.Contr
             this.register(el);
         }
     }
-    register(el) {
+    register(el,callback) {
         el.addEventListener('click', () => {
-            this.open();
+            this.open().then(el => { if (callback) callback(el); });
         });
     }
     open() {
         const tempalte = this.element;
         const node = tempalte.content.cloneNode(true);
-        document.body.appendChild(node);
+        return new Promise(resolve => {
+            node.firstElementChild.addEventListener('initialized', e => resolve(e.target));
+            document.body.appendChild(node);
+        });
     }
     get opener() {
         return this.data.get('open');
@@ -43,7 +29,7 @@ AiplugsElements.register('aiplugs-dialog-template', class extends Stimulus.Contr
 })
 AiplugsElements.register('aiplugs-dialog', class extends Stimulus.Controller {
     initialize() {
-        console.log('dialog');
+        this.initialized();
     }
     close() {
         this.element.remove();

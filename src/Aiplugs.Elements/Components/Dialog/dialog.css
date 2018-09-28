@@ -16,3 +16,11 @@
     padding: 1.6rem;
     border-radius: 0.3rem;
 }
+.aiplugs-dialog__message {
+    padding: 1.6rem;
+    text-align: center;
+}
+.aiplugs-dialog__actions {
+    display: flex;
+    justify-content: center;
+}

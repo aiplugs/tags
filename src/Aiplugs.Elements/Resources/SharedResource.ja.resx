@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Message::Confirm::Delete {0}" xml:space="preserve">
+    <value>選択された{0}個のアイテムを削除します。</value>
+  </data>
+  <data name="Label::Confirm::Delete::Yes" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="Label::Confirm::Delete::No" xml:space="preserve">
+    <value>考え直す</value>
+  </data>
+  <data name="Message::Confirm::Discard" xml:space="preserve">
+    <value>「{0}」の変更を破棄します。</value>
+  </data>
+  <data name="Label::Confirm::Discard::Yes" xml:space="preserve">
+    <value>変更を破棄する</value>
+  </data>
+  <data name="Label::Confirm::Discard::No" xml:space="preserve">
+    <value>考え直す</value>
+  </data>
   <data name="Label::Optional" xml:space="preserve">
     <value>（任意）</value>
   </data>

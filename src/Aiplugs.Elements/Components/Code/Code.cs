@@ -69,7 +69,33 @@ namespace Aiplugs.Elements
 
             output.Html("<button type=\"button\" class=\"fas aiplugs-code__toggle\" data-action=\"aiplugs-code#toggleView\"></button>");
 
+            output.Tag("template", () => {
+                output.Attr("data-controller", "aiplugs-dialog-template");
+            }, () => {
+                output.HtmlLine($"<div class=\"aiplugs-dialog\" data-controller=\"aiplugs-dialog\">");
+                output.HtmlLine($"<div class=\"aiplugs-dialog__content\">");
+                output.HtmlLine($"<p class=\"aiplugs-dialog__message\">{Localizer.MsgConfirmDiscard(Label)}</p>");
+                output.HtmlLine("<div class=\"aiplugs-dialog__actions\">");
+                output.HtmlLine($"<button class=\"aiplugs-button --warning aiplugs-code__close-realy\">{Localizer.LabelConfirmDiscardYes()}</button>");
+                output.HtmlLine($"<button class=\"aiplugs-button --block --primary\" data-action=\"aiplugs-dialog#close\">{Localizer.LabelConfirmDiscardNo()}</button>");
+                output.HtmlLine("</div>");
+                output.HtmlLine("</div>");
+                output.HtmlLine("</div>");
+            });
+
             RenderFieldFooter(context, output, Name);
+        }
+    }
+
+    [HtmlTargetElement(Attributes="[aiplugs-code]")]
+    public class AiplugsCodeElement : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            if (output.Attributes.TryGetAttribute("aiplugs-code", out var attr) && attr.ValueStyle != HtmlAttributeValueStyle.NoQuotes)
+            {
+                output.Attributes.Merge("class", $"aiplugs-code__{attr.Value}");
+            }
         }
     }
 }

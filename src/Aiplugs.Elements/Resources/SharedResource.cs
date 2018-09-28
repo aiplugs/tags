@@ -4,6 +4,12 @@ namespace Aiplugs.Elements
 {
     public class SharedResource
     {
+        public const string MSG_CONFIRM_DELETE = "Message::Confirm::Delete {0}";
+        public const string LABEL_CONFIRM_DELETE_YES = "Label::Confirm::Delete::Yes";
+        public const string LABEL_CONFIRM_DELETE_NO = "Label::Confirm::Delete::No";
+        public const string MSG_CONFIRM_DISCARD = "Message::Confirm::Discard";
+        public const string LABEL_CONFIRM_DISCARD_YES = "Label::Confirm::Discard::Yes";
+        public const string LABEL_CONFIRM_DISCARD_NO = "Label::Confirm::Discard::No";
         public const string LABEL_OPTIONAL = "Label::Optional";
         public const string LABEL_REQUIRED = "Label::Required";
         public const string VAL_MSG_REQUIRED = "Message::Validation::Required {0}";
@@ -24,6 +30,12 @@ namespace Aiplugs.Elements
 
     public static class SharedResourceLocalizerExtensions
     {
+        public static string MsgConfirmDelete(this IStringLocalizer<SharedResource> localzer, int count) => localzer[SharedResource.MSG_CONFIRM_DELETE, count];
+        public static string LabelConfirmDeleteYes(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_CONFIRM_DELETE_YES];
+        public static string LabelConfirmDeleteNo(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_CONFIRM_DELETE_NO];
+        public static string MsgConfirmDiscard(this IStringLocalizer<SharedResource> localzer, string label) => localzer[SharedResource.MSG_CONFIRM_DISCARD, label];
+        public static string LabelConfirmDiscardYes(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_CONFIRM_DISCARD_YES];
+        public static string LabelConfirmDiscardNo(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_CONFIRM_DISCARD_NO];
         public static string LabelOptional(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_OPTIONAL];
         public static string LabelRequired(this IStringLocalizer<SharedResource> localzer) => localzer[SharedResource.LABEL_REQUIRED];
         public static string MsgValRequired(this IStringLocalizer<SharedResource> localzer, string label) => localzer[SharedResource.VAL_MSG_REQUIRED, label];

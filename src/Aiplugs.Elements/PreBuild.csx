@@ -8,6 +8,42 @@ using System.Resources;
 var target = "SharedResource";
 var i18n = new Dictionary<string, Dictionary<string, string>>
 {
+    { "Message::Confirm::Delete {0}", new Dictionary<string, string> 
+        {
+            { "", "Are you sure you want to delete {0} item(s)?" },
+            { "ja", "選択された{0}個のアイテムを削除します。" },
+        } },
+    
+    { "Label::Confirm::Delete::Yes", new Dictionary<string, string> 
+        {
+            { "", "Yes" },
+            { "ja", "削除する" },
+        } },
+    
+    { "Label::Confirm::Delete::No", new Dictionary<string, string> 
+        {
+            { "", "No" },
+            { "ja", "考え直す" },
+        } },
+    
+    { "Message::Confirm::Discard", new Dictionary<string, string> 
+        {
+            { "", "Are you sure you want to close without save changes of {0}?" },
+            { "ja", "「{0}」の変更を破棄します。" },
+        } },
+    
+    { "Label::Confirm::Discard::Yes", new Dictionary<string, string> 
+        {
+            { "", "Yes" },
+            { "ja", "変更を破棄する" },
+        } },
+    
+    { "Label::Confirm::Discard::No", new Dictionary<string, string> 
+        {
+            { "", "No" },
+            { "ja", "考え直す" },
+        } },
+
     { "Label::Optional", new Dictionary<string, string> 
         {
             { "", "(optional)" },
