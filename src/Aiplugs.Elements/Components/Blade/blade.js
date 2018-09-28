@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 AiplugsElements.register('aiplugs-blade', class extends Stimulus.Controller {
+    close() {
+        this.element.remove();
+    }
     toggle() {
         this.expanded = !this.expanded;
     }
