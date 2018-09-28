@@ -33,9 +33,9 @@
     <aiplugs-nav-item icon="~/images/icon.svg" href="~/">
         <span class="logo">aiplugs cms</span>
     </aiplugs-nav-item>
-    <aiplugs-nav-item icon="fa fa-bars" class="fold-action">
+    <aiplugs-nav-item icon="fa fa-bars" is="aiplugs-nav-fold">
     </aiplugs-nav-item>
-    <aiplugs-nav-item icon="fa fa-folder" class="active">
+    <aiplugs-nav-item icon="fa fa-folder" active>
         <span>Files</span>
     </aiplugs-nav-item>
     <aiplugs-nav-item icon="fa fa-sticky-note">
@@ -55,7 +55,7 @@
     <aiplugs-nav-item>Users</aiplugs-nav-item>
         <aiplugs-nav-item>App Settings</aiplugs-nav-item>
     </aiplugs-nav-items>
-    <div class="flex"></div>
+    <div is="aiplugs-space"></div>
     <aiplugs-nav-item slot="bottom" icon="https://avatars2.githubusercontent.com/u/1011232?s=32&u=332a5b77904556e83686f16105a3355f46c82292&v=4">
         iwate
     </aiplugs-nav-item>
@@ -69,10 +69,10 @@
             <span is="aiplugs-space"></span>
             <button type="button" id="open-dialog" is="aiplugs-button" looks="block" color="primary">Button</button>
             <aiplugs-dialog open="#open-dialog">
-                <p>本当に削除しますか？</p>
-                <div>
-                <button name="remove" for="list" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog-close">Yes</button>
-                <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog-close">No</button>
+                <p is="aiplugs-dialog-message">本当に削除しますか？</p>
+                <div is="aiplugs-dialog-actions">
+                    <button name="remove" for="list" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog-close">Yes</button>
+                    <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog-close">No</button>
                 </div>
             </aiplugs-dialog>
         </aiplugs-actions>
@@ -138,7 +138,7 @@
                 <template>
                     <aiplugs-blade label="Editor">
                         <aiplugs-actions>
-                            <button class="btn primary" aiplugs-is="aiplugs-code::close">Close</button>
+                            <button class="btn primary" behave="aiplugs-blade-close">Close</button>
                             <button class="btn" aiplugs-is="aiplugs-code::cancel">Cancel</button>
                         </aiplugs-actions>
                         <aiplugs-tinymce value=@code aiplugs-is="aiplugs-code::editor"></aiplugs-tinymce>
@@ -159,9 +159,17 @@
             <aiplugs-dictionary name="Dict" label="ディクショナリ" description="ディクショナリです。" value=@dict pattern-key="^[a-z]+$"></aiplugs-dictionary>
             *@
             <aiplugs-tag name="Tag" label="タグ" description="たぐです。" selection=@tags value=@tagValue ignore-case max-length="4" min-length="3"></aiplugs-tag>
-            @*
-            <aiplugs-tag name="Tag2" label="タグ2" description="たぐです。" required pattern="^[a-z]+$" ignore-case></aiplugs-tag>
-            *@
+            <aiplugs-code label="HTML" name="Code" description="コードコード" required lang="html" Value=@code>
+                <template>
+                    <aiplugs-blade label="Editor">
+                        <aiplugs-actions>
+                            <button is="aiplugs-button" looks="block" aiplugs-code="close">Close</button>
+                            <button is="aiplugs-button" aiplugs-code="cancel">Cancel</button>
+                        </aiplugs-actions>
+                        <aiplugs-tinymce value=@code aiplugs-code="editor" />
+                    </aiplugs-blade>
+                </template>
+            </aiplugs-code>
             <aiplugs-array name="Array1" label="Array1"  description="配列です">
                 <template>
                     <aiplugs-array-item label="Array1">
