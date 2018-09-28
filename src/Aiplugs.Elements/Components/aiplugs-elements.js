@@ -34,5 +34,10 @@
             }, dt);
         }
     }
+    Stimulus.Controller.prototype.initialized = function () {
+        requestIdleCallback(() => {
+            this.element.dispatchEvent(new CustomEvent('initialized'));
+        });
+    }
     global.AiplugsElements =  Stimulus.Application.start();
 }(window))
