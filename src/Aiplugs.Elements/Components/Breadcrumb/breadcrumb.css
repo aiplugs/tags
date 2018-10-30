@@ -1,0 +1,32 @@
+.aiplugs-breadcrumb {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 32px;
+}
+.aiplugs-breadcrumb > li {
+    display: flex;
+    align-items: center;
+}
+.aiplugs-breadcrumb > li::after {
+    content: 'keyboard_arrow_right';
+    font-family: 'Material Icons';
+    padding: 0 0.8rem;
+}
+.aiplugs-breadcrumb > li:last-child::after {
+    content: '';
+}
+.aiplugs-breadcrumb > li > a {
+    text-decoration: none;
+    color: var(--color-text-primary);
+    cursor: pointer;
+}
+.aiplugs-breadcrumb > li > a:hover {
+    color: var(--color-primary);
+}
+.aiplugs-breadcrumb > li > a:active {
+    color: var(--color-accent);
+}

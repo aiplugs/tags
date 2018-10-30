@@ -11,68 +11,76 @@
     user-select: none;
     transition: all linear 0.125s;
 }
-.aiplugs-button:hover {
+.aiplugs-button:hover:not(.--disabled) {
     cursor: pointer;
     color: var(--color-text-primary);
 }
-.aiplugs-button:active {
+.aiplugs-button:active:not(.--disabled) {
     color: var(--color-text-secondary);
 }
 
 .aiplugs-button.--primary {
     color: var(--color-primary);
 }
-.aiplugs-button.--primary:hover {
+.aiplugs-button.--primary:hover:not(.--disabled) {
     color: var(--color-accent);
 }
-.aiplugs-button.--primary:active {
+.aiplugs-button.--primary:active:not(.--disabled) {
     color: var(--color-primary);
 }
 .aiplugs-button.--warning {
     color: var(--color-error);
 }
-.aiplugs-button.--warning:hover {
+.aiplugs-button.--warning:hover:not(.--disabled) {
     color: var(--color-error);
 }
-.aiplugs-button.--warning:active {
+.aiplugs-button.--warning:active:not(.--disabled) {
     color: var(--color-text-secondary);
 }
 
-.aiplugs-button.--block {
+.aiplugs-button.--block:not(.--disabled) {
     color: var(--color-text-secondary);
     background: var(--color-mono);
 }
-.aiplugs-button.--block:hover {
+.aiplugs-button.--block:hover:not(.--disabled) {
     color: white;
     background: var(--color-text-secondary);
 }
-.aiplugs-button.--block:active {
+.aiplugs-button.--block:active:not(.--disabled) {
     color: var(--color-text-secondary);
     border-color: var(--color-text-secondary);
     background: transparent;
 }
 
-.aiplugs-button.--block.--primary {
+.aiplugs-button.--block.--primary:not(.--disabled) {
     color: white;
     background: var(--color-primary);
 }
-.aiplugs-button.--block.--primary:hover {
+.aiplugs-button.--block.--primary:hover:not(.--disabled) {
     background: var(--color-accent);
 }
-.aiplugs-button.--block.--primary:active {
+.aiplugs-button.--block.--primary:active:not(.--disabled) {
     color: var(--color-primary);
     border-color: var(--color-primary);
     background: transparent;
 }
-.aiplugs-button.--block.--warning {
+.aiplugs-button.--block.--warning:not(.--disabled) {
     color: white;
     background: var(--color-error);
 }
-.aiplugs-button.--block.--warning:hover {
+.aiplugs-button.--block.--warning:hover:not(.--disabled) {
     background: var(--color-error);
 }
-.aiplugs-button.--block.--warning:active {
+.aiplugs-button.--block.--warning:active:not(.--disabled) {
     color: var(--color-error);
     border-color: var(--color-error);
     background: transparent;
+}
+
+.aiplugs-button.--disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+.aiplugs-button.--full {
+    width: 100%;
 }

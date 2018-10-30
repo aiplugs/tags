@@ -2,15 +2,31 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
 {
-    [HtmlTargetElement(Attributes="[behave$='-close']")]
+    [HtmlTargetElement(Attributes="[close]")]
     public class AiplugsClose : TagHelper
     {
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (output.Attributes.TryGetAttribute("behave", out var attr))
+            if (output.Attributes.TryGetAttribute("close", out var attr))
             {
-                var behave = attr.Value.ToString().Replace("-close", "#close");
-                output.Attributes.Add("data-action", behave);
+                output.Attributes.Add("ic-get-from", "//null");
+                output.Attributes.Add("ic-target", $"closest .{attr.Value}");
+                output.Attributes.Add("ic-replace-target", "true");
+                output.Attributes.Remove(attr);
+            }
+        }
+    }
+
+    [HtmlTargetElement(Attributes="[with-close]")]
+    public class AiplugsWithClose : TagHelper
+    {
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            if (output.Attributes.TryGetAttribute("with-close", out var attr))
+            {
+                output.Attributes.Add("ic-target", $"closest .{attr.Value}");
+                output.Attributes.Add("ic-replace-target", "true");
+                output.Attributes.Remove(attr);
             }
         }
     }

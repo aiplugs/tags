@@ -33,21 +33,23 @@
     </aiplugs-nav-item>
 </aiplugs-nav>
 <aiplugs-blade label="Sample">
-    <form id="list" method="GET" class="flex">
-        <aiplugs-actions>
-            <button class="btn">Button</button>
-            <button class="btn primary">Button</button>
-            <button class="btn block">Button</button>
-            <span class="space"></span>
-            <button type="button" id="open-dialog" class="btn block primary">Button</button>
+    <form id="files" method="GET" class="flex">
+        <aiplugs-actions id="actions">
+            <button is="aiplugs-button">Button</button>
+            <button is="aiplugs-button" color="primary" when="one">Button</button>
+            <button is="aiplugs-button" looks="block">Button</button>
+            <span is="aiplugs-space"></span>
+            <button type="button" id="open-dialog" is="aiplugs-button" when="any">Delete</button>
             <aiplugs-dialog open="#open-dialog">
-                <p>本当に削除しますか？</p>
-                <button name="remove" for="list" type="submit" class="btn">Yes</button>
-                <button class="btn primary block">No</button>
+                <p is="aiplugs-dialog-message">本当に削除しますか？</p>
+                <div is="aiplugs-dialog-actions">
+                    <button name="remove" for="files" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog-close">Yes</button>
+                    <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog-close">No</button>
+                </div>
             </aiplugs-dialog>
         </aiplugs-actions>
         
-        <aiplugs-list label-name="Name*" label-size="Size" label-lastmodified="Last Modified">
+        <aiplugs-list id="list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onSelectedItems()">
             <aiplugs-list-item name="items" item="1">
                 <aiplugs-list-column class="flex">
                     <a href="#">
@@ -59,7 +61,7 @@
             </aiplugs-list-item>
             <aiplugs-list-item name="items" item="2">
                 <aiplugs-list-column class="flex">
-                    <a ic-get-from="/preview.html" ic-target="#preview">
+                    <a ic-get-from="/preview" ic-target="#preview" ic-replace-target="true">
                         <i class="far fa-file"></i>Sample 2
                     </a>
                 </aiplugs-list-column>
@@ -70,3 +72,13 @@
     </form>
 </aiplugs-blade>
 <div id="preview"></div>
+<script>
+    function onSelectedItems() {
+        const actions = AiplugsElements.find('#actions');
+        const list = AiplugsElements.find('#list');
+        actions.items = list.electedItems.length;
+    }
+</script>
+<script type="text/html">
+    <h1>Hello</h1>
+</script>

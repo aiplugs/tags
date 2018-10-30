@@ -90,12 +90,17 @@ namespace Aiplugs.Elements
     [HtmlTargetElement(Attributes="[aiplugs-code]")]
     public class AiplugsCodeElement : TagHelper
     {
+        public AiplugsCodeElementType AiplugsCode { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            if (output.Attributes.TryGetAttribute("aiplugs-code", out var attr) && attr.ValueStyle != HtmlAttributeValueStyle.NoQuotes)
-            {
-                output.Attributes.Merge("class", $"aiplugs-code__{attr.Value}");
-            }
+            output.Attributes.Merge("class", $"aiplugs-code__{AiplugsCode}");
         }
+    }
+
+    public enum AiplugsCodeElementType
+    {
+        close,
+        cancel,
+        editor
     }
 }

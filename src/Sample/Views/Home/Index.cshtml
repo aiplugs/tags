@@ -27,6 +27,9 @@
     .aiplugs-tag  {
         margin: 2.4rem 0;
     }
+    .hidden {
+        display: none;
+    }
 </style>
 
 <aiplugs-nav>
@@ -67,106 +70,54 @@
             <button is="aiplugs-button" color="primary">Button</button>
             <button is="aiplugs-button" looks="block" color="primary">Button</button>
             <span is="aiplugs-space"></span>
-            <button type="button" id="open-dialog" is="aiplugs-button" looks="block" color="primary">Button</button>
-            <aiplugs-dialog open="#open-dialog">
-                <p is="aiplugs-dialog-message">本当に削除しますか？</p>
-                <div is="aiplugs-dialog-actions">
-                    <button name="remove" for="list" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog-close">Yes</button>
-                    <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog-close">No</button>
-                </div>
+            <button type="button" is="aiplugs-button" looks="block" color="primary" ic-get-from="#delete-dialog" ic-target="body" ic-swap-style="append">Button</button>
+            <aiplugs-dialog id="delete-dialog">
+                <p slot="content">本当に削除しますか？</p>
+                <div slot="actions">
+                    <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
+                    <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
+                </div>            
             </aiplugs-dialog>
         </aiplugs-actions>
         <div class="flex" style="padding:0 24px; overflow-y: scroll;">
-            @*
-            <aiplugs-input 
-                label="ユーザーネーム"
-                name="Username"
-                pattern="^[a-zA-Z0-9]+$" 
-                max-length="10"
-                description="登録するユーザ名です。半角英数字のみ使用可能です。"
-                required
-                unique
-                ajax=@ajax>
-            </aiplugs-input>
-            <aiplugs-input 
-                type="email"
-                label="メールアドレス"
-                name="Email"
-                required>
-            </aiplugs-input>
-            <aiplugs-input 
-                type="password"
-                label="パスワード"
-                name="Password" 
-                pattern="^[a-zA-Z0-9]+$" 
-                pattern-error-message="{0}は半角英数字のみ使用可能です。"
-                required>
-            </aiplugs-input>
-            <aiplugs-input 
-                label="ユーザー"
-                name="Other"
-                ajax=@ajax>
-            </aiplugs-input>
-            <aiplugs-input 
-                type="date"
-                label="誕生日"
-                name="Birthday">
-            </aiplugs-input>
-            <aiplugs-input 
-                type="number"
-                label="整数"
-                name="Integer"
-                step="1"
-                min="0"
-                max="10">
-            </aiplugs-input>
-            <aiplugs-input 
-                type="number"
-                label="浮動小数点"
-                name="Float"
-                step="0.01">
-            </aiplugs-input>
-            <aiplugs-checkbox
-                label="チェックボックス"
-            ></aiplugs-checkbox>
-            <aiplugs-select label="セレクト1" name="Select1" selection=@selection1 required description="選択肢から選んでください。"></aiplugs-select>
-            <aiplugs-select label="セレクト2" name="Select2" selection=@selection2 required></aiplugs-select>
-            <aiplugs-select label="セレクト3" name="Select3" selection=@selection3 multiple min-length="3"></aiplugs-select>
-            <aiplugs-select label="セレクト4" name="Select4" selection=@selection4 multiple min-length="3"></aiplugs-select>
-            <aiplugs-textarea label="テキストエリア" name="Textarea" placeholder="This is free note" description="自由項目です。" required></aiplugs-textarea>
-            <aiplugs-code label="コード" name="Code" description="コードコード" required lang="html" Value=@code>
-                <template>
-                    <aiplugs-blade label="Editor">
-                        <aiplugs-actions>
-                            <button class="btn primary" behave="aiplugs-blade-close">Close</button>
-                            <button class="btn" aiplugs-is="aiplugs-code::cancel">Cancel</button>
-                        </aiplugs-actions>
-                        <aiplugs-tinymce value=@code aiplugs-is="aiplugs-code::editor"></aiplugs-tinymce>
-                    </aiplugs-blade>
-                </template>
-            </aiplugs-code>
-            <aiplugs-code label="コード" name="Code2" description="コードコード" required lang="html" Value=@code>
-                <template>
-                    <aiplugs-blade label="Editor">
-                        <aiplugs-actions>
-                            <button class="btn primary" aiplugs-is="aiplugs-code::close">Close</button>
-                            <button class="btn" aiplugs-is="aiplugs-code::cancel">Cancel</button>
-                        </aiplugs-actions>
-                        <aiplugs-monaco value=@code aiplugs-is="aiplugs-code::editor"></aiplugs-monaco>
-                    </aiplugs-blade>
-                </template>
-            </aiplugs-code>
-            <aiplugs-dictionary name="Dict" label="ディクショナリ" description="ディクショナリです。" value=@dict pattern-key="^[a-z]+$"></aiplugs-dictionary>
-            *@
             <aiplugs-tag name="Tag" label="タグ" description="たぐです。" selection=@tags value=@tagValue ignore-case max-length="4" min-length="3"></aiplugs-tag>
-            <aiplugs-code label="HTML" name="Code" description="コードコード" required lang="html" Value=@code>
+            <aiplugs-code label="Wysiwyg" name="Wysiwyg" description="コードコード" required lang="html" Value=@code>
                 <template>
-                    <aiplugs-blade label="Editor">
-                        <aiplugs-actions>
-                            <button is="aiplugs-button" looks="block" aiplugs-code="close">Close</button>
-                            <button is="aiplugs-button" aiplugs-code="cancel">Cancel</button>
-                        </aiplugs-actions>
-                        <aiplugs-tinymce value=@code aiplugs-code="editor" />
+                    <aiplugs-blade label="Editor" wide expanded>
+                        <form id="form2">
+                            <aiplugs-actions>
+                                <button type="submit" is="aiplugs-button" looks="block" ic-put-to="//#Wysiwyg/value" ic-target="closest .aiplugs-blade" ic-replace-target="true">Close</button>
+                                <button type="button" is="aiplugs-button" open="#form2-cancel-dialog">Discard Changes</button>
+                                <aiplugs-dialog id="form2-cancel-dialog">
+                                    <p slot="content">破棄しますか？</p>
+                                    <div slot="actions">
+                                        <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-blade">Yes</button>
+                                        <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
+                                    </div>
+                                </aiplugs-dialog>
+                            </aiplugs-actions>
+                            <aiplugs-tinymce name="value" value-from="#Wysiwyg" aiplugs-code="editor" modal-image="~/modal/file" modal-video="~/modal/file"></aiplugs-tinymce>
+                        </form>
+                    </aiplugs-blade>
+                </template>
+            </aiplugs-code>
+            <aiplugs-code label="HTML" name="HTML" description="コードコード" required lang="html" Value=@code>
+                <template>
+                    <aiplugs-blade label="Editor" wide expanded>
+                        <form id="form2">
+                            <aiplugs-actions>
+                                <button type="submit" is="aiplugs-button" looks="block" ic-put-to="//#HTML/value" ic-target="closest .aiplugs-blade" ic-replace-target="true">Close</button>
+                                <button type="button" is="aiplugs-button" ic-get-from="#form2-cancel-dialog" ic-target="closest .aiplugs-blade" ic-swap-style="append">Cancel</button>
+                                <aiplugs-dialog id="form2-cancel-dialog">
+                                    <p slot="content">破棄しますか？</p>
+                                    <div slot="actions">
+                                        <button type="submit" is="aiplugs-button" color="warning" ic-get-from="//null" ic-target="closest .aiplugs-blade" ic-replace-target="true">Yes</button>
+                                        <button type="button" is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog#close">No</button>
+                                    </div>
+                                </aiplugs-dialog>
+                            </aiplugs-actions>
+                            <aiplugs-monaco name="value" value-from="#HTML"></aiplugs-monaco>
+                        </form>
                     </aiplugs-blade>
                 </template>
             </aiplugs-code>
@@ -199,4 +150,3 @@
         </div>
     </form>
 </aiplugs-blade>
-<div id="preview"></div>

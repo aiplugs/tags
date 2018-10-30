@@ -1,5 +1,5 @@
 .aiplugs-dialog {
-    position: absolute;
+    position: fixed;
     background: rgba(0, 0, 0, 0.15);
     width: 100vw;
     height: 100vh;
@@ -10,17 +10,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10000;
 }
-.aiplugs-dialog__content {
+.aiplugs-dialog__body {
     background: white;
     padding: 1.6rem;
     border-radius: 0.3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
 }
-.aiplugs-dialog__message {
+.aiplugs-dialog__content {
     padding: 1.6rem;
     text-align: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
 }
 .aiplugs-dialog__actions {
     display: flex;
     justify-content: center;
+    grid-column: 1/2;
+    grid-row: 2/3;
 }

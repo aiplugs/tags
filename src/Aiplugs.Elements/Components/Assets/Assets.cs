@@ -32,6 +32,10 @@ namespace Aiplugs.Elements
         public bool jQueryValidationUnobtrusive { get; set; } = true;
         private string _jqueryValidationUnobtrusive => "~/lib/aiplugs-elements/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js";
 
+        [HtmlAttributeName("intercooler")]
+        public bool Intercooler { get; set; } = true;
+        private string _intercooler => "https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.1/intercooler.min.js";
+
         public bool Stimulus { get; set; } = true;
         private string _stimulus => "https://unpkg.com/stimulus/dist/stimulus.umd.js";
 
@@ -45,7 +49,7 @@ namespace Aiplugs.Elements
         public bool Highlight { get; set; } = true;
         private string _highligt => "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js";
 
-        public string HighlightTheme { get; set; } = "solarized-light";
+        public string HighlightTheme { get; set; } = "atom-one-light";
         private string _highligtTheme => $"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/{HighlightTheme}.min.css";
 
         public bool FontAwesome { get; set; } = true;
@@ -99,6 +103,9 @@ namespace Aiplugs.Elements
                 output.HtmlLine(script(_jqueryValidationUnobtrusive));
                 output.HtmlLine(script("~/lib/aiplugs-elements/js/unobtrusive.adapters.js"));
             }
+
+            if (Intercooler)
+                output.HtmlLine(script(_intercooler));
 
             if (Stimulus)
                 output.HtmlLine(script(_stimulus));

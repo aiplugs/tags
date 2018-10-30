@@ -107,3 +107,7 @@
     background: bisque !important;
     box-shadow: 0 0 0px 100vw bisque inset;
 }
+
+.aiplugs-code code.hljs {
+    background: var(--color-bg-secondary);
+}

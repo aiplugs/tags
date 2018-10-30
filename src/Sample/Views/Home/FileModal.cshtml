@@ -1,0 +1,137 @@
+@model FolderViewModel
+@{
+    Layout = null;
+}
+<aiplugs-modal id="file-modal">
+    <style>
+        #file-modal {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 5.9rem 5.9rem 1fr 5.9rem;
+        }
+        #file-modal__actions {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+        }
+        #file-modal__list {
+            grid-column: 1 / 2;
+            grid-row: 3 / 4;
+        }
+        #file-modal__preview {
+            grid-column: 2 / 3;
+            grid-row: 1 / 5;
+            background: var(--color-bg-secondary);
+
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr auto;
+            height: 100%;
+        }
+        #file-modal__pagination {
+            grid-column: 1 / 2;
+            grid-row: 4 / 5;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        #file-modal__next {
+            display: flex;
+            align-items: center;
+        }
+        #file-modal__breadcrumb {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+        .file-modal__preview-frame {
+            grid-row: 1/2;
+            width: 100%;
+            height: 100%;
+        }
+        .file-modal__preview-actions {
+            grid-row: 2/3;
+        }
+    </style>
+
+    <ul is="aiplugs-breadcrumb" id="file-modal__breadcrumb">
+        @foreach((var name, var link) in Model.Breadcrumbs)
+        {
+            <li>
+                <a ic-get-from="@link" ic-target="#file-modal" ic-replace-target="true">@name</a>
+            </li>
+        }
+    </ul>
+
+    <aiplugs-actions id="file-modal__actions">
+        <button is="aiplugs-button" color="primary">Upload</button>
+        <button is="aiplugs-button">New Folder</button>
+        <button is="aiplugs-button" when="one">Rename</button>
+        <span is="aiplugs-space"></span>
+        <button type="button" id="modal-delete-dialog" is="aiplugs-button" when="any">Delete</button>
+        <aiplugs-dialog open="#modal-delete-dialog">
+            <p is="aiplugs-dialog-message">本当に削除しますか？</p>
+            <div is="aiplugs-dialog-actions">
+                <button name="remove" for="files" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog#close">Yes</button>
+                <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog#close">No</button>
+            </div>
+        </aiplugs-dialog>
+    </aiplugs-actions>
+    <div style="overflow:hidden;">
+    <aiplugs-list id="file-modal__list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onFileModalSelectedItems()">
+        @foreach(var folder in Model.Folders)
+        {
+            <aiplugs-list-item name="folders[]" item="@folder.Name">
+                <aiplugs-list-column class="flex">
+                    <a ic-get-from="@folder.Link" ic-target="#file-modal" ic-replace-target="true">
+                        <i class="fa fa-folder"></i>@folder.Name
+                    </a>
+                </aiplugs-list-column>
+                <aiplugs-list-column class="text-small"></aiplugs-list-column>
+                <aiplugs-list-column class="text-small"></aiplugs-list-column>
+            </aiplugs-list-item>
+        }
+        @if (Model.Files.Count() > 0) {
+            var maxSize = Model.Files.Max(f => f.Size);
+            var padSize = maxSize.ToString("##,###").Length;
+            foreach(var file in Model.Files)
+            {
+                <aiplugs-list-item name="files[]" item="@file.Name">
+                    <aiplugs-list-column class="flex" ic-get-from="@(file.PreviewLink)?naked=true" ic-target="#file-modal__preview">
+                        <i class="far fa-file"></i>@file.Name
+                    </aiplugs-list-column>
+                    <aiplugs-list-column class="text-small" ic-get-from="@(file.PreviewLink)?naked=true" ic-target="#file-modal__preview">
+                        <span style="text-align: right; width: @(padSize * 8)px;">
+                            @file.Size.ToString("##,###")
+                        </span>
+                        [B]
+                    </aiplugs-list-column>
+                    <aiplugs-list-column class="text-small" ic-get-from="@(file.PreviewLink)?naked=true" ic-target="#file-modal__preview">
+                        @file.LastModifiedAt
+                    </aiplugs-list-column>
+                </aiplugs-list-item>
+            }
+        }
+    </aiplugs-list>
+    </div>
+    
+    <div id="file-modal__pagination">
+        <button is="aiplugs-button" id="file-modal__next">Next <i class="material-icons">keyboard_arrow_right</i></button>
+    </div>
+
+    <div id="file-modal__preview">
+        <aiplugs-actions class="file-modal__preview-actions">
+            <button is="aiplugs-button" close="aiplugs-modal">Cancel</button>
+        </aiplugs-actions>
+    </div>
+
+    <script>
+        function onFileModalSelectedItems() {
+            const actions = AiplugsElements.find('#file-modal__actions');
+            const list = AiplugsElements.find('#file-modal__list');
+            actions.items = list.electedItems.length;
+        }
+        function onFileModalInsert() {
+            window['@Model.Callback']('https://user-images.githubusercontent.com/1011232/36073986-ab312362-0f7c-11e8-942d-be1e30f96f82.png');
+        }
+    </script>
+
+</aiplugs-modal>

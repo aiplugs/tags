@@ -20,6 +20,9 @@ namespace Aiplugs.Elements
             var size =  Size  != ButtonSize.@default  ? "--" + Size.ToString().ToLower()  : "";
             var color = Color != Color.@default       ? "--" + Color.ToString().ToLower() : "";
             output.Attributes.Merge("class", $"{ElementName} {style} {size} {color}");
+            if (output.Attributes.TryGetAttribute("is", out var attr)) {
+                output.Attributes.Remove(attr);
+            }
         }
     }
 

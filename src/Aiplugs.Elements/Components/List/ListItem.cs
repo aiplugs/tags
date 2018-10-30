@@ -22,10 +22,20 @@ namespace Aiplugs.Elements
             if (Checked) 
                 output.Attributes.Merge("class", "aiplugs-list__item--checked");
 
-            var name = !string.IsNullOrEmpty(Name) ?  $"name=\"{Name}[{(Item??"")}]\"" : "";
-
             var content = await output.GetChildContentAsync();
-            output.Content.AppendHtml($"<td><label class=\"aiplugs-list__item-selector\"><input type=\"checkbox\" {name} data-target=\"aiplugs-list-item.checkbox\" data-action=\"aiplugs-list-item#update\"/></label></td>");
+            output.Html("<td><label class=\"aiplugs-list__item-selector\">");
+            output.Tag("input", () => {
+                output.Attr("type", "checkbox");
+                output.Attr("data-target", "aiplugs-list-item.checkbox");
+                output.Attr("data-action", "aiplugs-list-item#update");
+
+                if (!string.IsNullOrEmpty(Name))
+                    output.Attr("name", Name);
+
+                if (!string.IsNullOrEmpty(Item))
+                    output.Attr("value", Item);
+            });
+            output.Html("</label></td>");            
             output.Content.AppendHtml(content);
         }
     }

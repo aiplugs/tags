@@ -1,0 +1,19 @@
+.aiplugs-modal {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 10vh;
+    left: 10vw;
+    width: 80vw;
+    height: 80vh;
+    max-width: 136rem;
+    max-height: 136rem;
+    box-shadow: 1rem 1rem 4rem rgba(0,0,0,19%);
+    background: white;
+    z-index: 10000;
+}
+@media screen and (min-width: 1700px) {
+    .aiplugs-modal {
+        left: calc((100% - 136rem) / 2);
+    }
+}

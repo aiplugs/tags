@@ -30,9 +30,9 @@
     color: var(--color-text-primary);
 }
 
-.aiplugs-array:focus-within > .aiplugs-array__header label {
+/* .aiplugs-array:focus-within > .aiplugs-array__header label {
     color: var(--color-primary);
-}
+} */
 
 .aiplugs-array__item {
     position: relative;

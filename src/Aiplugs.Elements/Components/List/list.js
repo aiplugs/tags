@@ -3,10 +3,25 @@ AiplugsElements.register("aiplugs-list", class extends Stimulus.Controller {
     return ["item"];
   }
   select(e) {
-    this.itemTargets.forEach(el => {
-      this.application.closestRoot(el, 'aiplugs-list-item').unselect();
-    })
+    this.items.forEach(item => { item.unselect(); });
     this.application.closestRoot(e.target, "aiplugs-list-item").select();
+  }
+  dispatchUpdate() {
+    this.throttle('change-selects', 100, () => {
+      this.element.dispatchEvent(new CustomEvent('change'));
+    })
+  }
+  get items() {
+    return this.itemTargets.map(el => this.application.resolve(el, 'aiplugs-list-item'));
+  }
+  get selectedItem() {
+    return this.items.filter(item => item.selected)[0];
+  }
+  get checkedItems() {
+    return this.items.filter(item => item.checked);
+  }
+  get electedItems() {
+    return this.items.filter(item => item.selected || item.checked);
   }
 });
 
@@ -20,6 +35,7 @@ AiplugsElements.register("aiplugs-list-item", class extends Stimulus.Controller 
   update() {
     this.element.classList.toggle("--checked", this.checked);
     this.element.classList.toggle("--selected", this.selected);
+    this.parent('aiplugs-list').dispatchUpdate();
   }
   select() {
     this.selected = true;
