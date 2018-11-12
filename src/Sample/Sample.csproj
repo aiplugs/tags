@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RestoreSources>../Aiplugs.Elements/bin/Debug;$(RestoreSources)</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,7 @@
     <PackageReference Include="Aiplugs.Elements" Version="1.0.0"/>
   </ItemGroup>
 
-  <Target Name="CopyAssets" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
+  <Target Name="CopyAssets" AfterTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
     <ItemGroup>
       <AiplugsElementsAssets Include="../Aiplugs.Elements/wwwroot/**/*.*"/>
     </ItemGroup>
