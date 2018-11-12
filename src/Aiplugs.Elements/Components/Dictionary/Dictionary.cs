@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Aiplugs.Elements.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -17,6 +18,18 @@ namespace Aiplugs.Elements
         {
         }
 
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                if (Value == null)
+                    Value = ModelExpression.ModelExplorer.Model as IDictionary<string, string>;
+                
+            }
+        }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
@@ -31,9 +44,12 @@ namespace Aiplugs.Elements
             output.Html("<template data-target=\"aiplugs-dictionary.template\">");
             RenderItem(context, output);
             output.Html("</template>");
-            foreach (var item in Value)
+            if (Value != null)
             {
-                RenderItem(context, output, item);
+                foreach (var item in Value)
+                {
+                    RenderItem(context, output, item);
+                }
             }
             output.Html("</div>");
             

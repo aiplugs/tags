@@ -18,32 +18,25 @@ namespace Sample.Controllers
             _env = env;
         }
         public IActionResult Index()
-        {
-            return View();
-        }
+            => RedirectToAction("Page");
 
-        [HttpGet("/files/")]
+        [HttpGet("/page/{name?}")]
+        public IActionResult Page(string name = "index")
+            => View(name, new SampleViewModel());
+
+        [HttpGet("/files/{*path}")]
         public IActionResult Files([FromRoute]string path)
-        {
-            return View(GetFolder("/files/", path));
-        }
+            => View(GetFolder("/files/", path));
 
         [HttpGet("/modal/file/{*path}")]
-        public IActionResult FileModal([FromRoute]string path, [FromQuery]string callback)
-        {
-            return View(GetFolder("/modal/file/", path, callback));
-        }
+        public IActionResult ModalFiles([FromRoute]string path)
+            => View(GetFolder("/modal/file/", path));
 
         [HttpGet("/preview")]
         public IActionResult Preview(bool naked = false)
-        {
-            if (naked)
-                return View("NakedPreview");
+            => naked ? View("NakedPreview") : View();
 
-            return View();
-        }
-
-        public FolderViewModel GetFolder(string prefix, string path, string callback = "")
+        public FolderViewModel GetFolder(string prefix, string path)
         {
             if (path == null)
                 path = string.Empty;
@@ -56,8 +49,7 @@ namespace Sample.Controllers
 
             return new FolderViewModel
             {
-                Callback = callback,
-                Link = Path.Combine(prefix, path) + $"?callback={callback}",
+                Link = Path.Combine(prefix, path),
                 Name = string.IsNullOrEmpty(path) ? "Home" : self.Name,
                 Files = files.Select(f=>  new FileViewModel
                 {
@@ -68,12 +60,12 @@ namespace Sample.Controllers
                 }),
                 Folders = dirs.Select(d => new FolderViewModel
                 {
-                    Link = Path.Combine(prefix, path, d.Name) + $"?callback={callback}",
+                    Link = Path.Combine(prefix, path, d.Name),
                     Name = d.Name,
                 }),
                 Breadcrumbs = new []
                 {
-                    ("Home", prefix + $"?callback={callback}")
+                    ("Home", prefix)
                 }.Concat(names.Select((n, i) => (n, Path.Combine(prefix, string.Join("/", names.Take(i + 1))))))
             };
         }

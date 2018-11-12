@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -8,11 +9,44 @@ namespace Aiplugs.Elements
     {
         public override string ElementName => "aiplugs-textarea";
         public string Placeholder { get; set; }
+        public int? MaxLength { get; set; }
+        public int? MinLength { get; set; }
         public string Value { get; set; }
         public AiplugsTextarea(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                if (Placeholder == null)
+                    Placeholder = ModelExpression.Metadata.Placeholder;
+
+                if (Value == null)
+                    Value = (string)GetModelStateValue(ViewContext, Name, typeof(string)) ?? ModelExpression.ModelExplorer.Model?.ToString();
+
+                foreach (var attribute in ModelExpression.ModelExplorer.Metadata.ValidatorMetadata)
+                {
+                    if (attribute is StringLengthAttribute stringLengthAttribute)
+                    {
+                        if (MinLength == null)
+                            MinLength = stringLengthAttribute.MinimumLength;
+
+                        if (MaxLength == null)
+                            MaxLength = stringLengthAttribute.MaximumLength;
+                    }
+                    
+                    else if (MinLength == null && attribute is MinLengthAttribute minLengthAttribute)
+                            MinLength = minLengthAttribute.Length;
+
+                    else if (MaxLength == null && attribute is MaxLengthAttribute maxLengthAttribute)
+                            MaxLength = maxLengthAttribute.Length;
+                }
+            }
+        }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);

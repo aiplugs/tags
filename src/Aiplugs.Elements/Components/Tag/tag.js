@@ -141,7 +141,7 @@ AiplugsElements.register("aiplugs-tag-item", class extends Stimulus.Controller {
         return ["input", "label"];
     }
     initialize() {
-        $.validator.unobtrusive.parseElement(this.inputTarget, false);
+        //$.validator.unobtrusive.parseElement(this.inputTarget, false);
     }
     validate(form, name) {
         form = form || this.element.closest("form");

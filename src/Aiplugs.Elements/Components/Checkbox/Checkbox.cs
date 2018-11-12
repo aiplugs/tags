@@ -1,3 +1,4 @@
+using Aiplugs.Elements.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -10,6 +11,20 @@ namespace Aiplugs.Elements
         public bool Checked { get; set; }
         public AiplugsCheckbox(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
+        }
+
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                var type = typeof(bool);
+                if (ModelExpression.ModelExplorer.ModelType == type) 
+                {
+                    Checked = (bool?)GetModelStateValue(ViewContext, Name, typeof(bool?)) ?? (bool)ModelExpression.ModelExplorer.Model;
+                }
+            }
         }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

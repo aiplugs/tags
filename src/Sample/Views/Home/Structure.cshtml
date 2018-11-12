@@ -1,0 +1,52 @@
+@using Aiplugs.Elements
+@{
+    ViewBag.PageName = "Structure";
+    ViewData["Title"] = "Structure";
+    var usernames = new Ajax { Url = "/usernames.json?startsWith={0}" };
+    var cities = new Ajax { Url = "/cities.json?startsWith={0}" };
+}
+<aiplugs-blade label="Sample">
+    <form id="list" method="GET" class="flex flex-column">
+        <aiplugs-actions>
+            <button is="aiplugs-button" looks="block" color="primary">Update</button>
+            <button is="aiplugs-button">Cancel</button>
+            <span is="aiplugs-space"></span>
+            <button type="button" is="aiplugs-button" open="#delete-dialog">Delete</button>
+            <aiplugs-dialog id="delete-dialog">
+                <p slot="content">本当に削除しますか？</p>
+                <div slot="actions">
+                    <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
+                    <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
+                </div>            
+            </aiplugs-dialog>
+        </aiplugs-actions>
+        <div class="flex" style="padding:0 24px; overflow-y: scroll;">
+            <aiplugs-array name="Array1" label="Array1"  description="This is Array1 field.">
+                <template>
+                    <aiplugs-array-item label="Array1">
+                        <aiplugs-input name="Array1[].Input" label="Input1" description="This is Input1 field."/>
+                        <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="This is Checkbox field."/>
+                        <aiplugs-array name="Array2" label="Array2"  description="配列です">
+                            <template>
+                                <aiplugs-array-item label="Array2">
+                                    <aiplugs-input name="Array2[].Input" label="Input2"/>
+                                </aiplugs-array-item>
+                            </template>
+                        </aiplugs-array>
+                    </aiplugs-array-item>
+                </template>
+                <aiplugs-array-item label="Array1" index="0">
+                    <aiplugs-input name="Array1[].Input" label="Input1" description="This is Input1 field."/>
+                    <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="This is Checkbox field."/>
+                    <aiplugs-array name="Array2" label="Array2"  description="This is Array2 field.">
+                        <template>
+                            <aiplugs-array-item label="Array2">
+                                <aiplugs-input name="Array2[].Input" label="Input2"/>
+                            </aiplugs-array-item>
+                        </template>
+                    </aiplugs-array>
+                </aiplugs-array-item>
+            </aiplugs-array>
+        </div>
+    </form>
+</aiplugs-blade>

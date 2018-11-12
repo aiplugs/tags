@@ -66,7 +66,7 @@ namespace Sample
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Default/Error");
                 app.UseHsts();
             }
 

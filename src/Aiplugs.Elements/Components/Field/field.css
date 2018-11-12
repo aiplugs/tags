@@ -11,6 +11,7 @@
 .aiplugs-field__message {
     margin-top: 0.4rem;
     padding: 0 1.2rem;
+    order: 100;
 }
 .aiplugs-field:hover > .aiplugs-field__header label {
     color: var(--color-text-primary);

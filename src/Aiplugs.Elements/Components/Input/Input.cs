@@ -1,4 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Aiplugs.Elements.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -22,10 +28,69 @@ namespace Aiplugs.Elements
         public bool Unique { get; set; }
         public bool IgnoreCase { get; set; }
         public Ajax Ajax { get; set;}
+
         public AiplugsInput(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
         }
 
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                if (Type == null)
+                {
+                    Type = GetInputType(ModelExpression.ModelExplorer, out var _);
+                }
+
+                if (Value == null)
+                {
+                    Value = (string)GetModelStateValue(ViewContext, Name, typeof(string)) ?? ModelExpression.ModelExplorer.Model?.ToString();
+                }
+
+                if (Placeholder == null)
+                {
+                    Placeholder = ModelExpression.Metadata.Placeholder;
+                }
+
+                foreach (var attribute in ModelExpression.ModelExplorer.Metadata.ValidatorMetadata)
+                {
+                    if (attribute is RegularExpressionAttribute regularExpressionAttribute)
+                    {
+                        if (Pattern == null)
+                            Pattern = regularExpressionAttribute.Pattern;
+                        
+                        if (PatternErrorMessage == null)
+                            PatternErrorMessage = regularExpressionAttribute.ErrorMessage;
+                    }
+
+                    else if (attribute is RangeAttribute rangeAttribute)
+                    {
+                        if (Min == null)
+                            Min = Convert.ToDouble(rangeAttribute.Minimum);
+                        
+                        if (Max == null)
+                            Max = Convert.ToDouble(rangeAttribute.Maximum);
+                    }
+
+                    else if (attribute is StringLengthAttribute stringLengthAttribute)
+                    {
+                        if (MinLength == null)
+                            MinLength = stringLengthAttribute.MinimumLength;
+
+                        if (MaxLength == null)
+                            MaxLength = stringLengthAttribute.MaximumLength;
+                    }
+                    
+                    else if (MinLength == null && attribute is MinLengthAttribute minLengthAttribute)
+                            MinLength = minLengthAttribute.Length;
+
+                    else if (MaxLength == null && attribute is MaxLengthAttribute maxLengthAttribute)
+                            MaxLength = maxLengthAttribute.Length;
+                }
+            }
+        }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             base.Process(context, output);
@@ -100,7 +165,7 @@ namespace Aiplugs.Elements
                 if (MinLength.HasValue)
                 {
                     output.Attr("data-val-minlength", Localizer.MsgValMinLengthForString(Label, MinLength.Value));
-                    output.Attr("data-val-minlength-max", MinLength.ToString());
+                    output.Attr("data-val-minlength-min", MinLength.ToString());
                 }
 
                 if (type == "number")
@@ -140,6 +205,100 @@ namespace Aiplugs.Elements
             
             RenderFieldFooter(context, output, Name);
         }
+
+        #region https://github.com/aspnet/Mvc/blob/a67d9363e22be8ef63a1a62539991e1da3a6e30e/src/Microsoft.AspNetCore.Mvc.TagHelpers/InputTagHelper.cs
+        // Mapping from datatype names and data annotation hints to values for the <input/> element's "type" attribute.
+        private static readonly Dictionary<string, string> _defaultInputTypes =
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { "HiddenInput", InputType.Hidden.ToString().ToLowerInvariant() },
+                { "Password", InputType.Password.ToString().ToLowerInvariant() },
+                { "Text", InputType.Text.ToString().ToLowerInvariant() },
+                { "PhoneNumber", "tel" },
+                { "Url", "url" },
+                { "EmailAddress", "email" },
+                { "Date", "date" },
+                { "DateTime", "datetime-local" },
+                { "DateTime-local", "datetime-local" },
+                { nameof(DateTimeOffset), "text" },
+                { "Time", "time" },
+                { "Week", "week" },
+                { "Month", "month" },
+                { nameof(Byte), "number" },
+                { nameof(SByte), "number" },
+                { nameof(Int16), "number" },
+                { nameof(UInt16), "number" },
+                { nameof(Int32), "number" },
+                { nameof(UInt32), "number" },
+                { nameof(Int64), "number" },
+                { nameof(UInt64), "number" },
+                { nameof(Single), InputType.Text.ToString().ToLowerInvariant() },
+                { nameof(Double), InputType.Text.ToString().ToLowerInvariant() },
+                { nameof(Boolean), InputType.CheckBox.ToString().ToLowerInvariant() },
+                { nameof(Decimal), InputType.Text.ToString().ToLowerInvariant() },
+                { nameof(String), InputType.Text.ToString().ToLowerInvariant() },
+                { nameof(IFormFile), "file" },
+                { TemplateRenderer.IEnumerableOfIFormFileName, "file" },
+            };
+
+        // Mapping from <input/> element's type to RFC 3339 date and time formats.
+        private static readonly Dictionary<string, string> _rfc3339Formats =
+            new Dictionary<string, string>(StringComparer.Ordinal)
+            {
+                { "date", "{0:yyyy-MM-dd}" },
+                { "datetime", @"{0:yyyy-MM-ddTHH\:mm\:ss.fffK}" },
+                { "datetime-local", @"{0:yyyy-MM-ddTHH\:mm\:ss.fff}" },
+                { "time", @"{0:HH\:mm\:ss.fff}" },
+            };
+        /// <summary>
+        /// Gets an &lt;input&gt; element's "type" attribute value based on the given <paramref name="modelExplorer"/>
+        /// or <see cref="InputType"/>.
+        /// </summary>
+        /// <param name="modelExplorer">The <see cref="ModelExplorer"/> to use.</param>
+        /// <param name="inputTypeHint">When this method returns, contains the string, often the name of a
+        /// <see cref="ModelMetadata.ModelType"/> base class, used to determine this method's return value.</param>
+        /// <returns>An &lt;input&gt; element's "type" attribute value.</returns>
+        protected string GetInputType(ModelExplorer modelExplorer, out string inputTypeHint)
+        {
+            foreach (var hint in GetInputTypeHints(modelExplorer))
+            {
+                if (_defaultInputTypes.TryGetValue(hint, out var inputType))
+                {
+                    inputTypeHint = hint;
+                    return inputType;
+                }
+            }
+
+            inputTypeHint = InputType.Text.ToString().ToLowerInvariant();
+            return inputTypeHint;
+        }
+        // A variant of TemplateRenderer.GetViewNames(). Main change relates to bool? handling.
+        private static IEnumerable<string> GetInputTypeHints(ModelExplorer modelExplorer)
+        {
+            if (!string.IsNullOrEmpty(modelExplorer.Metadata.TemplateHint))
+            {
+                yield return modelExplorer.Metadata.TemplateHint;
+            }
+
+            if (!string.IsNullOrEmpty(modelExplorer.Metadata.DataTypeName))
+            {
+                yield return modelExplorer.Metadata.DataTypeName;
+            }
+
+            // In most cases, we don't want to search for Nullable<T>. We want to search for T, which should handle
+            // both T and Nullable<T>. However we special-case bool? to avoid turning an <input/> into a <select/>.
+            var fieldType = modelExplorer.ModelType;
+            if (typeof(bool?) != fieldType)
+            {
+                fieldType = modelExplorer.Metadata.UnderlyingOrModelType;
+            }
+
+            foreach (var typeName in TemplateRenderer.GetTypeNames(modelExplorer.Metadata, fieldType))
+            {
+                yield return typeName;
+            }
+        }
+        #endregion
     }
     public class Ajax 
     {

@@ -1,6 +1,11 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Aiplugs.Elements.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -15,9 +20,62 @@ namespace Aiplugs.Elements
         public int? MaxLength { get; set; }
         public int? MinLength { get; set; }
         public IEnumerable<SelectListItem> Selection { get; set; }
+        private readonly IHtmlHelper _htmlHelper;
 
-        public AiplugsSelect(IStringLocalizer<SharedResource> localizer) : base(localizer)
+        public AiplugsSelect(IStringLocalizer<SharedResource> localizer, IHtmlHelper htmlHelper) : base(localizer)
         {
+            _htmlHelper = htmlHelper;
+        }
+        
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                foreach (var attribute in ModelExpression.ModelExplorer.Metadata.ValidatorMetadata)
+                {
+                    if (MaxLength == null && attribute is MaxLengthAttribute maxLengthAttribute)
+                        MaxLength = maxLengthAttribute.Length;
+
+                    else if (MinLength == null && attribute is MinLengthAttribute minLengthAttribute)
+                        MinLength = minLengthAttribute.Length;
+                }
+                var fieldType = ModelExpression.ModelExplorer.ModelType;
+                Multiple = fieldType.IsMultiple();
+
+                if (Selection == null)
+                {
+                    var itemType = Multiple ? fieldType.GetItemType() : fieldType;
+                    var isNullable = false;
+                    if (itemType.IsGenericType && itemType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    {
+                        itemType = Nullable.GetUnderlyingType(itemType);
+                        isNullable = true;
+                    }
+
+                    if (itemType.IsEnum)
+                    {
+                        Selection = _htmlHelper.GetEnumSelectList(itemType);
+                        Required = !isNullable;
+                    }
+
+                    if (!Required)
+                       Selection = (new [] {new SelectListItem()}).Concat(Selection ?? Enumerable.Empty<SelectListItem>());
+
+                    if (ModelExpression.ModelExplorer.Model != null)
+                    { 
+                        var model = ModelExpression.ModelExplorer.Model;
+                        var values = Multiple ? (itemType.IsEnum ? ((IEnumerable<int>)model).Select(n => n.ToString())
+                                                                 : ((IEnumerable<object>)model).Select(n => n.ToString()))
+                                              : new []{(itemType.IsEnum ? ((int)model).ToString() : model.ToString())};
+                        foreach(var option in Selection)
+                        {
+                            option.Selected = values.Contains(option.Value);
+                        }
+                    }
+                }
+            }
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -39,7 +97,7 @@ namespace Aiplugs.Elements
         public void RenderSelect(TagHelperContext context, TagHelperOutput output)
         {
             var id = GetDomId();
-            var name  = Multiple ? Name.ToArraySuffix() : Name;
+            var name  = Multiple ? Name.WithArraySuffix() : Name;
             var selection = Selection ?? new SelectListItem[0];
 
             output.Tag("select", ()=> {
@@ -56,14 +114,14 @@ namespace Aiplugs.Elements
                     output.Html(" multiple ");
                     if (MaxLength.HasValue)
                     {
-                        output.Attr("data-val-select-maxlength", Localizer.MsgValMaxLengthForArray(Label, MaxLength.Value));
-                        output.Attr("data-val-select-maxlength-max", MaxLength.ToString());
+                        output.Attr("data-val-maxcount", Localizer.MsgValMaxLengthForArray(Label, MaxLength.Value));
+                        output.Attr("data-val-maxcount-max", MaxLength.ToString());
                     }
 
                     if (MinLength.HasValue)
                     {
-                        output.Attr("data-val-select-minlength", Localizer.MsgValMinLengthForArray(Label, MinLength.Value));
-                        output.Attr("data-val-select-minlength-min", MinLength.ToString());
+                        output.Attr("data-val-mincount", Localizer.MsgValMinLengthForArray(Label, MinLength.Value));
+                        output.Attr("data-val-mincount-min", MinLength.ToString());
                     }
                 }
                 
@@ -97,7 +155,7 @@ namespace Aiplugs.Elements
             var id = GetDomId();
             var selection = Selection ?? new SelectListItem[0];
 
-            RenderFieldFooter(context, output, Name?.ToArraySuffix());
+            RenderFieldFooter(context, output, Name?.WithArraySuffix());
 
             foreach(var item in selection)
             {
@@ -111,7 +169,7 @@ namespace Aiplugs.Elements
                     output.Attr("data-val", "true");
 
                     if (Name != null)
-                        output.Attr("name", Name?.ToArraySuffix());
+                        output.Attr("name", Name?.WithArraySuffix());
                     
                     if (item.Selected)
                         output.Html(" checked ");
@@ -121,20 +179,20 @@ namespace Aiplugs.Elements
 
                     if (MaxLength.HasValue)
                     {
-                        output.Attr("data-val-select-maxlength", Localizer.MsgValMaxLengthForArray(Label, MaxLength.Value));
-                        output.Attr("data-val-select-maxlength-max", MaxLength.ToString());
+                        output.Attr("data-val-maxcount", Localizer.MsgValMaxLengthForArray(Label, MaxLength.Value));
+                        output.Attr("data-val-maxcount-max", MaxLength.ToString());
                     }
 
                     if (MinLength.HasValue)
                     {
-                        output.Attr("data-val-select-minlength", Localizer.MsgValMinLengthForArray(Label, MinLength.Value));
-                        output.Attr("data-val-select-minlength-min", MinLength.ToString());
+                        output.Attr("data-val-mincount", Localizer.MsgValMinLengthForArray(Label, MinLength.Value));
+                        output.Attr("data-val-mincount-min", MinLength.ToString());
                     }
 
                     if (!MinLength.HasValue && Required)
                     {
-                        output.Attr("data-val-select-minlength", Localizer.MsgValRequired(Label));
-                        output.Attr("data-val-select-minlength-min", "1");
+                        output.Attr("data-val-mincount", Localizer.MsgValRequired(Label));
+                        output.Attr("data-val-mincount-min", "1");
                     }
                     
                     if (item.Value != null)
@@ -175,8 +233,8 @@ namespace Aiplugs.Elements
 
                     if (Required)
                     {
-                        output.Attr("data-val-select-minlength", Localizer.MsgValRequired(Label));
-                        output.Attr("data-val-select-minlength-min", "1");
+                        output.Attr("data-val-mincount", Localizer.MsgValRequired(Label));
+                        output.Attr("data-val-mincount-min", "1");
                     }
 
                     if (item.Value != null)
@@ -190,6 +248,9 @@ namespace Aiplugs.Elements
 
         protected InputType GetInputType()
         {
+            if (!Required)
+                return InputType.Select;
+            
             switch(Type?.ToLower())
             {
                 case "select": return InputType.Select;

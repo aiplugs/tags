@@ -2,6 +2,9 @@ AiplugsElements.register("aiplugs-checkbox", class extends Stimulus.Controller {
   static get targets() {
     return ["checkbox"];
   }
+  initialize() {
+    this.update();
+  }
   update() {
     this.element.classList.toggle("aiplugs-checkbox--checked", this.checked);
   }

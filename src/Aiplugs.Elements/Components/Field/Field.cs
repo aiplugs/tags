@@ -1,4 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Aiplugs.Elements.Extensions;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -13,9 +20,22 @@ namespace Aiplugs.Elements
         public string Description { get; set; }
         public bool Required { get; set; }
         public bool Invalid { get; set; }
+
+        [HtmlAttributeName("asp-for")]
+        public ModelExpression ModelExpression { get; set; }
+
+        [HtmlAttributeNotBound]
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
         public string GetDomId()
         {
-            return Id ?? Name?.Replace(".", "_");
+            if (Id != null)
+                return Id;
+            
+            if (Name != null)
+                return NameAndIdProvider.CreateSanitizedId(ViewContext, Name, "_");
+
+            return null;
         }
 
         protected readonly IStringLocalizer<SharedResource> Localizer;
@@ -24,8 +44,68 @@ namespace Aiplugs.Elements
             Localizer = localizer;
         }
 
+        protected virtual void ExtractFromModelExpression()
+        {
+            if (ModelExpression != null) 
+            {
+                var modelExplorer = ModelExpression.ModelExplorer;
+                var expression = ModelExpression.Name;
+                var name = NameAndIdProvider.GetFullHtmlFieldName(ViewContext, expression);
+
+                if (Id == null) 
+                {
+                    Id = NameAndIdProvider.CreateSanitizedId(ViewContext, name, "_");
+                }
+
+                if (Name == null)
+                {
+                    Name = name;
+                }
+
+                if (Label == null)
+                {
+                    var label = modelExplorer.Metadata.DisplayName ?? modelExplorer.Metadata.PropertyName;
+                    if (label == null && expression != null)
+                    {
+                        var index = expression.LastIndexOf('.');
+                        if (index == -1)
+                        {
+                            // Expression does not contain a dot separator.
+                            label = expression;
+                        }
+                        else
+                        {
+                            label = expression.Substring(index + 1);
+                        }
+                    }
+                    Label = label;
+                }
+
+                if (Description == null)
+                {
+                    Description = modelExplorer.Metadata.Description;
+                }
+
+                if (modelExplorer.Metadata.ValidatorMetadata.Any(attribute => attribute is RequiredAttribute))
+                {
+                    Required = true;
+                }
+            }
+        }
+        internal static object GetModelStateValue(ViewContext viewContext, string key, Type destinationType)
+        {
+            if (viewContext.ViewData.ModelState.TryGetValue(key, out var entry) && entry.RawValue != null)
+            {
+                return ModelBindingHelper.ConvertTo(entry.RawValue, destinationType, culture: null);
+            }
+
+            return null;
+        }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            ExtractFromModelExpression();
+
             var @class = $"{ElementName} aiplugs-field {(Invalid ? "--invalid":"")}";
 
             output.TagName = "div";
@@ -43,11 +123,15 @@ namespace Aiplugs.Elements
 
                     output.Text(Label);
 
-                    if (Required)
-                        output.Html(Localizer.LabelRequired());
-                    
-                    else
-                        output.Html(Localizer.LabelOptional());
+                    output.Tag("span", () => {
+                        output.Attr("class", $"aiplugs-field__badge {(Required ? "--required" : "--optional")}");
+                    }, () => {
+                        if (Required)
+                            output.Html(Localizer.LabelRequired());
+                        
+                        else
+                            output.Html(Localizer.LabelOptional());
+                    });
                 });
             });
         }

@@ -13,10 +13,6 @@ namespace Aiplugs.Elements
             output.Attributes.Add("ic-get-from", Open);
             output.Attributes.Add("ic-target", OpenTo);
             output.Attributes.Add("ic-swap-style", "append");
-            // if (output.Attributes.TryGetAttribute("open", out var attr))
-            // {
-            //     output.Attributes.Remove(attr);
-            // }
         }
     }
 }

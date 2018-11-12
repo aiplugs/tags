@@ -16,17 +16,14 @@ AiplugsElements.register("aiplugs-input", class extends Stimulus.Controller {
     }).then(data => Array.isArray(data) ? data : []);
   }
   onInput() {
-    if (this.debounceId)
-      clearTimeout(this.debounceId);
-
-    this.debounceId = setTimeout(() => {
+    this.debounce('oninput', 300, () => {
       if (this.ajaxUrl) {
         if (this.unique)
           this.check();
         else
           this.suggestion();
       }
-    }, 300);
+    });
   }
   onBlur() {
     if (this.ajaxUrl && !this.unique) {

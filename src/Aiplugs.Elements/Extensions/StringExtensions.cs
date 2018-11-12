@@ -1,8 +1,8 @@
-namespace Aiplugs.Elements
+namespace Aiplugs.Elements.Extensions
 {
     public static class StringExtensions
     {
-        public static string ToArraySuffix(this string name)
+        public static string WithArraySuffix(this string name)
         {
             if (name == null)
                 return null;

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Aiplugs.Elements.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Aiplugs.Elements
@@ -28,7 +29,8 @@ namespace Aiplugs.Elements
 
             var content = await output.GetChildContentAsync();
             output.Html("<button class=\"aiplugs-blade__expand far\" data-action=\"aiplugs-blade#toggle\"></button>");
-            output.Html($"<header class=\"aiplugs-blade__header\">{Label??""}</header>");
+            if (Label != null)
+                output.Html($"<header class=\"aiplugs-blade__header\">{Label}</header>");
             output.Content.AppendHtml(content);
         }
     }
