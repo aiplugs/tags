@@ -10,8 +10,8 @@ jobs:
           name: Build Solution
           command: |
             cd ~/repo/src
-            md Aiplugs.Elements/bin
-            md Aiplugs.Elements/bin/Debug
+            mkdir Aiplugs.Elements/bin
+            mkdir Aiplugs.Elements/bin/Debug
             dotnet build
   push:
     docker:
