@@ -2,11 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <NuspecFile>Aiplugs.Elements.nuspec</NuspecFile>
+    <Version>1.0.0$(VersionSuffix)</Version>
+    <PackageId>Aiplugs.Elements</PackageId>
+    <Authors>aiplugs</Authors>
+    <Copyright>aiplugs</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources/PreBuild.csx" />
+  </ItemGroup>
+
+  <ItemGroup Label="Packaging">
+    <None Include="Aiplugs.Elements.targets">
+      <Pack>true</Pack>
+      <PackagePath>build</PackagePath>
+    </None>
+    <Content Include="wwwroot/**/*.*">
+      <Pack>true</Pack>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -16,5 +30,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="2.1.1" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet pack --no-build $(ProjectDir)\Aiplugs.Elements.csproj" />
+  </Target>
   
 </Project>

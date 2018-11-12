@@ -1,0 +1,8 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <SourceScripts  Include="$(MSBuildThisFileDirectory)..\content\wwwroot\**\*.*" />
+  </ItemGroup>
+  <Target Name="CopyScriptsToProject" BeforeTargets="Build">
+    <Copy SourceFiles="@(SourceScripts)" DestinationFiles="@(SourceScripts -> '$(MSBuildProjectDirectory)\wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"/>
+  </Target>
+</Project>

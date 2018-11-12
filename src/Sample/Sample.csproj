@@ -5,18 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Aiplugs.Elements/Aiplugs.Elements.csproj"/>
-    <AiplugsElementsAssets Include="../Aiplugs.Elements/wwwroot/**/*.*"/>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="2.1.1" />
   </ItemGroup>
 
-  <Target Name="CopyAssets" AfterTargets="BeforeBuild">
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <ProjectReference Include="../Aiplugs.Elements/Aiplugs.Elements.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <PackageReference Include="Aiplugs.Elements" Version="1.0.0"/>
+  </ItemGroup>
+
+  <Target Name="CopyAssets" AfterTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
+    <ItemGroup>
+      <AiplugsElementsAssets Include="../Aiplugs.Elements/wwwroot/**/*.*"/>
+    </ItemGroup>
     <Copy SourceFiles="@(AiplugsElementsAssets)" DestinationFiles="./wwwroot/%(RecursiveDir)%(Filename)%(Extension)" />
+  </Target>
+
+  <Target Name="BuildElements" BeforeTargets="Restore" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet build ../Aiplugs.Elements/Aiplugs.Elements.csproj"/>
   </Target>
 
 </Project>
