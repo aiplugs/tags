@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <!-- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet pack --no-build $(ProjectDir)\Aiplugs.Elements.csproj"></Exec>
+    <Exec Command="dotnet pack -no-build $(ProjectDir)\Aiplugs.Elements.csproj"></Exec>
   </Target> -->
   
 </Project>
