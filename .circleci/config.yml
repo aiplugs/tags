@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: microsoft/dotnet:2.1-sdk
+      - image: microsoft/dotnet:2.1-sdk-stretch
     working_directory: ~/repo
     steps:
       - checkout
@@ -13,7 +13,7 @@ jobs:
             dotnet build
   push:
     docker:
-      - image: microsoft/dotnet:2.1-sdk
+      - image: microsoft/dotnet:2.1-sdk-stretch
     working_directory: ~/repo
     steps:
       - checkout
