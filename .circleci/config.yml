@@ -31,12 +31,6 @@ workflows:
       - build
   publish:
     jobs:
-      - build:
-          filters:
-            tags: 
-              only: /.*/
-            branches:
-              ignore: /.*/
       - push:
           requires:
           filters:
