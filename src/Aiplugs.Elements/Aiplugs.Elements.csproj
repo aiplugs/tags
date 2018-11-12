@@ -31,8 +31,8 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="2.1.1" />
   </ItemGroup>
 
-  <!-- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="dotnet pack -no-build $(ProjectDir)\Aiplugs.Elements.csproj"></Exec>
-  </Target> -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet pack --no-build $(ProjectDir)\Aiplugs.Elements.csproj"></Exec>
+  </Target>
   
 </Project>
