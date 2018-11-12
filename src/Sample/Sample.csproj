@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RestoreSources>../Aiplugs.Elements/bin/Debug;$(RestoreSources)</RestoreSources>
+    <RestoreSources>../Aiplugs.Elements/bin/Debug;$(RestoreSources);https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
 
   <ItemGroup>
