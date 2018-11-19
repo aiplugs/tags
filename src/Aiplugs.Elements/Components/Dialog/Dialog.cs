@@ -10,14 +10,14 @@ namespace Aiplugs.Elements
     {
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "template";
-            output.Attributes.Add("data-controller", "aiplugs-dialog-template");
+            output.TagName = "div";
+            output.TagMode = TagMode.StartTagAndEndTag;
+            output.Attributes.Merge("class", "aiplugs-dialog");
+            output.Attributes.Add("data-controller", "aiplugs-dialog");
 
             var content = await output.GetChildContentAsync();
-            output.HtmlLine($"<div class=\"aiplugs-dialog\" data-controller=\"aiplugs-dialog\">");
             output.HtmlLine($"<div class=\"aiplugs-dialog__body\">");
             output.Content.AppendHtml(content);
-            output.HtmlLine("</div>");
             output.HtmlLine("</div>");
         }
     }

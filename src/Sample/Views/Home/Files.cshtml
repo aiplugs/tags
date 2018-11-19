@@ -17,13 +17,15 @@
             <button is="aiplugs-button" looks="block" when="one">Rename</button>
             <span is="aiplugs-space"></span>
             <button type="button" is="aiplugs-button" when="any" open="#delete-dialog">Button</button>
-            <aiplugs-dialog id="delete-dialog">
-                <p slot="content">本当に削除しますか？</p>
-                <div slot="actions">
-                    <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
-                    <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
-                </div>            
-            </aiplugs-dialog>
+            <template id="delete-dialog">
+                <aiplugs-dialog>
+                    <p slot="content">本当に削除しますか？</p>
+                    <div slot="actions">
+                        <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
+                        <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
+                    </div>
+                </aiplugs-dialog>
+            </template>
         </aiplugs-actions>
         
         <aiplugs-list id="list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onSelectedItems()">

@@ -12,13 +12,15 @@
             <button is="aiplugs-button">Cancel</button>
             <span is="aiplugs-space"></span>
             <button type="button" is="aiplugs-button" open="#delete-dialog">Delete</button>
-            <aiplugs-dialog id="delete-dialog">
-                <p slot="content">本当に削除しますか？</p>
-                <div slot="actions">
-                    <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
-                    <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
-                </div>            
-            </aiplugs-dialog>
+            <template id="delete-dialog">
+                <aiplugs-dialog>
+                    <p slot="content">本当に削除しますか？</p>
+                    <div slot="actions">
+                        <button type="submit" is="aiplugs-button" color="warning" close="aiplugs-dialog">Yes</button>
+                        <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">No</button>
+                    </div>
+                </aiplugs-dialog>
+            </template>
         </aiplugs-actions>
         <div class="flex" style="padding:0 24px; overflow-y: scroll;">
             <aiplugs-array name="Array1" label="Array1"  description="This is Array1 field.">
