@@ -62,18 +62,8 @@
     </ul>
 
     <aiplugs-actions id="file-modal__actions">
-        <button is="aiplugs-button" color="primary">Upload</button>
         <button is="aiplugs-button">New Folder</button>
         <button is="aiplugs-button" when="one">Rename</button>
-        <span is="aiplugs-space"></span>
-        <button type="button" id="modal-delete-dialog" is="aiplugs-button" when="any">Delete</button>
-        <aiplugs-dialog open="#modal-delete-dialog">
-            <p is="aiplugs-dialog-message">本当に削除しますか？</p>
-            <div is="aiplugs-dialog-actions">
-                <button name="remove" for="files" type="submit" is="aiplugs-button" color="warning" behave="aiplugs-dialog#close">Yes</button>
-                <button is="aiplugs-button" looks="block" color="primary" behave="aiplugs-dialog#close">No</button>
-            </div>
-        </aiplugs-dialog>
     </aiplugs-actions>
     <div style="overflow:hidden;">
     <aiplugs-list id="file-modal__list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onFileModalSelectedItems()">

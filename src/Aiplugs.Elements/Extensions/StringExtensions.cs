@@ -12,5 +12,11 @@ namespace Aiplugs.Elements.Extensions
             
             return name + "[]";
         }
+
+        public static string ToIcTarget(this string target)
+            => target != null && target.StartsWith("aiplugs-") ? $"closest .{target}" : target;
+
+        public static string ToIcTarget(this object target)
+            => ToIcTarget(target?.ToString());
     }
 }
