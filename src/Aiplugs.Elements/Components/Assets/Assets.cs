@@ -126,8 +126,6 @@ namespace Aiplugs.Elements
                 output.HtmlLine("<script>hljs.initHighlightingOnLoad();</script>");
             }
                 
-            output.HtmlLine(script("~/lib/aiplugs-elements/js/resize.js"));
-            output.HtmlLine(script("~/lib/aiplugs-elements/js/controllers.js"));
             output.HtmlLine(script("~/lib/aiplugs-elements/js/script.js"));
         }
     }
