@@ -16,6 +16,7 @@ namespace Aiplugs.Elements
         public override string ElementName => "aiplugs-input";
         public string Type { get; set; }
         public string Value { get; set; }
+        public string ValueFrom { get; set; }
         public string Placeholder { get; set; }
         public double? Step { get; set; }
         public double? Max { get; set; }
@@ -137,8 +138,14 @@ namespace Aiplugs.Elements
                 if (Value != null)
                     output.Attr("value", Value);
 
+                if (ValueFrom != null)
+                    output.Attributes.Add("data-aiplugs-input-value-from", ValueFrom);
+
                 if (type == "email")
                     output.Attr("data-val-email", Localizer.MsgValEmail(Label));
+
+                if (Readonly)
+                    output.Html(" readonly");
 
                 if (Required)
                 {

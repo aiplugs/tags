@@ -14,7 +14,18 @@
         <aiplugs-actions id="actions">
             <button is="aiplugs-button" looks="block" color="primary" >Upload</button>
             <button is="aiplugs-button" looks="block">New Folder</button>
-            <button is="aiplugs-button" looks="block" when="one">Rename</button>
+            <button is="aiplugs-button" looks="block" when="one" open="#rename-dialog">Rename</button>
+            <template id="rename-dialog">
+                <aiplugs-dialog>
+                    <div slot="content">
+                        <aiplugs-input label="Name" value-from="[name='folders[]']" />
+                    </div>
+                    <div slot="actions">
+                        <button type="button" is="aiplugs-button" looks="block" color="primary" close="aiplugs-dialog">Update</button>
+                        <button type="button" is="aiplugs-button" close="aiplugs-dialog">Close</button>
+                    </div>
+                </aiplugs-dialog>
+            </template>
             <span is="aiplugs-space"></span>
             <button type="button" is="aiplugs-button" when="any" open="#delete-dialog">Button</button>
             <template id="delete-dialog">

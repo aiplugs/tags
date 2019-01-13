@@ -2,6 +2,14 @@ AiplugsElements.register("aiplugs-input", class extends Stimulus.Controller {
   static get targets() {
     return ["input", "suggestion"];
   }
+  initialize() {
+    if (this.valueFrom) {
+      const el = document.querySelector(this.valueFrom);
+      if (el) {
+        this.inputTarget.value = el.value;
+      }
+    }
+  }
   search() {
     const url = this.ajaxUrl.replace("{0}", this.inputTarget.value);
     const opts = {
@@ -87,4 +95,7 @@ AiplugsElements.register("aiplugs-input", class extends Stimulus.Controller {
   get ajaxValue() {
     return this.data.get("ajax-value") || "value";
   }
+  get valueFrom() {
+    return this.data.get("value-from");
+  } 
 });
