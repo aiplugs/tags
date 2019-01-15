@@ -10,6 +10,7 @@
     margin: 0.1rem;
     user-select: none;
     transition: all linear 0.125s;
+    text-decoration:none;
 }
 .aiplugs-button:hover:not(.--disabled) {
     cursor: pointer;
