@@ -12,6 +12,7 @@ namespace Aiplugs.Elements
         public string Value { get; set; }
         public string ValueFrom { get; set; }
         public string SettingsFrom { get; set; }
+        public string JsonSchemas { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var id = Guid.NewGuid().ToString();
@@ -20,8 +21,16 @@ namespace Aiplugs.Elements
             output.Attributes.Add("id", id);
             output.Attributes.Merge("class", "aiplugs-monaco");
             output.Attributes.Add("data-controller", "aiplugs-monaco");
-            output.Attributes.Add("data-aiplugs-monaco-value-from", ValueFrom);
-            output.Attributes.Add("data-aiplugs-monaco-settings-from", SettingsFrom);
+
+            if (!string.IsNullOrEmpty(ValueFrom))
+                output.Attributes.Add("data-aiplugs-monaco-value-from", ValueFrom);
+
+            if (!string.IsNullOrEmpty(SettingsFrom))
+                output.Attributes.Add("data-aiplugs-monaco-settings-from", SettingsFrom);
+
+            if (!string.IsNullOrEmpty(JsonSchemas))
+                output.Attributes.Add("data-aiplugs-monaco-json-schemas", JsonSchemas);
+
             output.Content.AppendHtml("<div class=\"aiplugs-progress\" data-target=\"aiplugs-monaco.progress\"></div>");
 
             output.Tag("textarea", () => {

@@ -36,6 +36,16 @@ AiplugsElements.register('aiplugs-monaco', class extends Stimulus.Controller {
             this.disposable(() => {
                 editor.dispose();
             })
+            const current = monaco.languages.json.jsonDefaults.diagnosticsOptions.schemas;
+            const additions = this.jsonSchemas.filter(uri => !current.some(schema => schema.uri === uri));
+            for (let uri of additions) {
+                fetch(uri, { method: 'get', credentials: 'include' })
+                    .then(res => res.json())
+                    .then(schema => {
+                        const schemas = monaco.languages.json.jsonDefaults.diagnosticsOptions.schemas.concat([{ uri, schema }]);
+                        monaco.languages.json.jsonDefaults.setDiagnosticsOptions({ validate: true, schemas });
+                    })
+            }
         })
     }
     getText(url) {
@@ -54,5 +64,8 @@ AiplugsElements.register('aiplugs-monaco', class extends Stimulus.Controller {
     }
     get settingsFrom() {
         return this.data.get('settings-from') || '';
+    }
+    get jsonSchemas() {
+        return (this.data.get('json-schemas') || '').split(',');
     }
 });
