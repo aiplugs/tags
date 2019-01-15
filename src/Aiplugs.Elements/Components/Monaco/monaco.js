@@ -39,7 +39,7 @@ AiplugsElements.register('aiplugs-monaco', class extends Stimulus.Controller {
             const current = monaco.languages.json.jsonDefaults.diagnosticsOptions.schemas;
             const additions = this.jsonSchemas.filter(uri => !current.some(schema => schema.uri === uri));
             for (let uri of additions) {
-                fetch(uri, { method: 'get', credentials: 'include' })
+                fetch(uri)
                     .then(res => res.json())
                     .then(schema => {
                         const schemas = monaco.languages.json.jsonDefaults.diagnosticsOptions.schemas.concat([{ uri, schema }]);
