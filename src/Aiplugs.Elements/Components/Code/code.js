@@ -46,4 +46,7 @@ AiplugsElements.register("aiplugs-code", class extends Stimulus.Controller {
     get container() {
         return document.querySelector(this.data.get("container")) || document.body;
     }
+    setNamePrefix(prefix) {
+        this.inputTarget.name = prefix + '.' + (this.data.get('nameTemplate') || '');
+    }
 });

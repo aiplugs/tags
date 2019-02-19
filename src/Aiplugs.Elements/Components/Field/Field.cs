@@ -112,6 +112,9 @@ namespace Aiplugs.Elements
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Merge("class", @class);
             output.Attributes.Add("data-controller", ElementName);
+
+            if (!string.IsNullOrEmpty(Name))
+                output.Attributes.Add($"data-{ElementName}-name-template", Name);
         }
 
         protected void RenderFieldHeader(TagHelperContext context, TagHelperOutput output)

@@ -58,6 +58,7 @@ AiplugsElements.register("aiplugs-tag", class extends Stimulus.Controller {
                 const item = this.items.pop();
                 item.label = label;
                 item.value = value;
+                item.name = this.name;
                 item.validate();
                 this.inputTarget.value = "";
             }, 0);
@@ -135,6 +136,19 @@ AiplugsElements.register("aiplugs-tag", class extends Stimulus.Controller {
     get ajaxValue() {
         return this.data.get("ajax-value") || "value";
     }
+    get name() {
+        return this.data.get('name') || '';
+    }
+    set name(value) {
+        this.data.set('name', value);
+    }
+    setNamePrefix(prefix) {
+        const name = prefix + '.' + (this.data.get('nameTemplate') || '');
+        for (let item of this.children('aiplugs-tag-item')) {
+            item.name = name;
+        }
+        this.name = name;
+    }
 });
 AiplugsElements.register("aiplugs-tag-item", class extends Stimulus.Controller {
     static get targets() {
@@ -156,6 +170,9 @@ AiplugsElements.register("aiplugs-tag-item", class extends Stimulus.Controller {
     }
     get name() {
         return this.inputTarget.name;
+    }
+    set name(value) {
+        this.inputTarget.name = value;
     }
     get value() {
         return this.inputTarget.value;

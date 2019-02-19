@@ -30,4 +30,7 @@ AiplugsElements.register("aiplugs-textarea", class extends Stimulus.Controller {
         this._len = len;
         container.scrollTop = scrollTop;
     }
+    setNamePrefix(prefix) {
+        this.textareaTarget.name = prefix + '.' + (this.data.get('nameTemplate') || '');
+    }
 });

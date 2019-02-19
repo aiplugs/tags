@@ -4,6 +4,9 @@
     ViewData["Title"] = "Structure";
     var usernames = new Ajax { Url = "/usernames.json?startsWith={0}" };
     var cities = new Ajax { Url = "/cities.json?startsWith={0}" };
+    var selection1 = new SelectListItem[] { new SelectListItem { Text = "" } }.Concat(Enumerable.Range(0, 10).Select(i => new SelectListItem { Text = $"Text {i}", Value = i.ToString() }));
+    var selection2 = Enumerable.Range(0, 3).Select(i => new SelectListItem { Text = $"Text {i}", Value = i.ToString() });
+    var dict = new Dictionary<string, string> { { "MSG", "Hello, World!" } };
 }
 <aiplugs-blade label="Sample">
     <form id="list" method="GET" class="flex flex-column">
@@ -23,29 +26,65 @@
             </template>
         </aiplugs-actions>
         <div class="flex" style="padding:0 24px; overflow-y: scroll;">
-            <aiplugs-array name="Array1" label="Array1"  description="This is Array1 field.">
+            <aiplugs-array label="Array1"  description="This is Array1 field." name="Array1[{0}]">
                 <template>
                     <aiplugs-array-item label="Array1">
-                        <aiplugs-input name="Array1[].Input" label="Input1" description="This is Input1 field."/>
-                        <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="This is Checkbox field."/>
-                        <aiplugs-array name="Array2" label="Array2"  description="配列です">
+                        <aiplugs-input name="Input" label="Input1" />
+                        <aiplugs-checkbox name="Flag" label="Flag" />
+                        <aiplugs-select type="select" name="Select" />
+                        <aiplugs-select type="radio" name="Radio" label="Radio" selection=@selection2 required/>
+                        <aiplugs-select type="checkbox" name="Checkbox" label="Checkbox" selection=@selection2 required/>
+                        <aiplugs-tag name="Tag" label="Tag" />
+                        <aiplugs-code name="Code" value="#This is code" lang="markdown"></aiplugs-code>
+                        <aiplugs-dictionary name="Dictionary" label="Dictionary"/>
+                        <aiplugs-array label="Array2" description="配列です" name="Array2[{0}]">
                             <template>
                                 <aiplugs-array-item label="Array2">
-                                    <aiplugs-input name="Array2[].Input" label="Input2"/>
+                                    <aiplugs-input name="Input" label="Input1" />
+                                    <aiplugs-checkbox name="Flag" label="Flag" />
+                                    <aiplugs-select type="select" name="Select" label="Select" selection=@selection1 />
+                                    <aiplugs-select type="radio" name="Radio" label="Radio" selection=@selection2 required/>
+                                    <aiplugs-select type="checkbox" name="Checkbox" label="Checkbox" selection=@selection2 required/>
+                                    <aiplugs-tag name="Tag" label="Tag" />
+                                    <aiplugs-code name="Code" value="#This is code" lang="markdown"></aiplugs-code>
+                                    <aiplugs-dictionary name="Dictionary" label="Dictionary" />
                                 </aiplugs-array-item>
                             </template>
                         </aiplugs-array>
                     </aiplugs-array-item>
                 </template>
                 <aiplugs-array-item label="Array1" index="0">
-                    <aiplugs-input name="Array1[].Input" label="Input1" description="This is Input1 field."/>
-                    <aiplugs-checkbox name="Array1[].Checkbox" label="Checkbox" description="This is Checkbox field."/>
-                    <aiplugs-array name="Array2" label="Array2"  description="This is Array2 field.">
+                    <aiplugs-input name="Input" label="Input1" />
+                    <aiplugs-checkbox name="Flag" label="Flag" />
+                    <aiplugs-select type="select" name="Select" selection=@selection1/>
+                    <aiplugs-select type="radio" name="Radio" label="Radio" selection=@selection2 required/>
+                    <aiplugs-select type="checkbox" name="Checkbox" label="Checkbox" selection=@selection2 required/>
+                    <aiplugs-tag name="Tag" label="Tag" />
+                    <aiplugs-code name="Code" value="#This is code" lang="markdown"></aiplugs-code>
+                    <aiplugs-dictionary name="Dictionary" label="Dictionary" value=@dict />
+                    <aiplugs-array label="Array2" description="配列です" name="Array2[{0}]">
                         <template>
                             <aiplugs-array-item label="Array2">
-                                <aiplugs-input name="Array2[].Input" label="Input2"/>
+                                <aiplugs-input name="Input" label="Input1" />
+                                <aiplugs-checkbox name="Flag" label="Flag" />
+                                <aiplugs-select type="select" name="Select" label="Select" selection=@selection1 />
+                                <aiplugs-select type="radio" name="Radio" label="Radio" selection=@selection2 required/>
+                                <aiplugs-select type="checkbox" name="Checkbox" label="Checkbox" selection=@selection2 required/>
+                                <aiplugs-tag name="Tag" label="Tag" />
+                                <aiplugs-code name="Code" value="#This is code" lang="markdown"></aiplugs-code>
+                                <aiplugs-dictionary name="Dictionary" label="Dictionary" value=@dict />
                             </aiplugs-array-item>
                         </template>
+                        <aiplugs-array-item label="Array2">
+                            <aiplugs-input name="Input" label="Input1" />
+                            <aiplugs-checkbox name="Flag" label="Flag" />
+                            <aiplugs-select type="select" name="Select" label="Select" selection=@selection1 />
+                            <aiplugs-select type="radio" name="Radio" label="Radio" selection=@selection2 required/>
+                            <aiplugs-select type="checkbox" name="Checkbox" label="Checkbox" selection=@selection2 required/>
+                            <aiplugs-tag name="Tag" label="Tag" />
+                            <aiplugs-code name="Code" value="#This is code" lang="markdown"></aiplugs-code>
+                            <aiplugs-dictionary name="Dictionary" label="Dictionary" value=@dict />
+                        </aiplugs-array-item>
                     </aiplugs-array>
                 </aiplugs-array-item>
             </aiplugs-array>

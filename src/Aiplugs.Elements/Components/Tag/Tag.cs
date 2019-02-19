@@ -85,12 +85,13 @@ namespace Aiplugs.Elements
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            Name = Name.WithArraySuffix();
             base.Process(context, output);
             RenderFieldHeader(context, output);
 
             var id = GetDomId();
-            var datalistId = "suggestion-" + id ?? Guid.NewGuid().ToString(); 
-            var name = Name.WithArraySuffix();
+            var datalistId = "suggestion-" + id ?? Guid.NewGuid().ToString();
+            var name = Name;
 
             output.Attributes.Add("data-aiplugs-tag-ignore-case", IgnoreCase.ToString().ToLower());
             if (Ajax != null) 
@@ -124,7 +125,7 @@ namespace Aiplugs.Elements
 
                 output.Tag("input", () => {
                     output.Attr("list", datalistId);
-                    output.Attr("class", "aiplugs-tag__input");
+                    output.Attr("class", "aiplugs-tag__input val-ignore");
                     output.Attr("data-target", "aiplugs-tag.input");
                     output.Attr("data-action", "keydown->aiplugs-tag#onKeydown");                    
                 });
@@ -157,9 +158,6 @@ namespace Aiplugs.Elements
                 output.Attr("type", "checkbox");
                 output.Attr("data-val", "true");
 
-                if (name != null)
-                    output.Attr("name", name);
-
                 if (value != null)
                     output.Attr("value", value);
 
@@ -190,6 +188,8 @@ namespace Aiplugs.Elements
 
                 if (target)
                 {
+                    if (name != null)
+                        output.Attr("name", name);
                     output.Attr("data-target", "aiplugs-tag-item.input");
                     output.Html(" checked ");
                 }

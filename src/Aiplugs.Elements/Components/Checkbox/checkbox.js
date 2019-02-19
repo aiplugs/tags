@@ -15,4 +15,7 @@ AiplugsElements.register("aiplugs-checkbox", class extends Stimulus.Controller {
     this.checkboxTarget.checked = value;
     this.update();
   }
+    setNamePrefix(prefix) {
+        this.checkboxTarget.name = prefix + '.' + (this.data.get('nameTemplate') || '');
+    }
 });

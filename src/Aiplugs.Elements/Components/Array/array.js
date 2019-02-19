@@ -2,6 +2,9 @@ AiplugsElements.register("aiplugs-array", class extends Stimulus.Controller {
     static get targets() {
         return ["items", "add", "item"];
     }
+    initialize() {
+        this.update();
+    }
     add() {
         const template = Array.from(this.itemsTarget.children).find(el => el.constructor === HTMLTemplateElement);
         if (template) {
@@ -14,12 +17,31 @@ AiplugsElements.register("aiplugs-array", class extends Stimulus.Controller {
         setTimeout(() => {
             this.items.forEach((item, index) => {
                 item.index = index;
+
+                const nameTemplate = this.nameTemplate;
+                const prefix = nameTemplate.replace("{0}", index);//.replace(/(?<!\{)\{0\}(?!\})/, index).replace('{{', '{').replace('}}', '}');
+                const elements = ["aiplugs-input", "aiplugs-textarea", "aiplugs-code", "aiplugs-tag", "aiplugs-select", "aiplugs-checkbox", "aiplugs-dictionary", "aiplugs-array"];
+                
+                for (let elemName of elements) {
+                    for (let elem of item.children(elemName)) {
+                        elem.setNamePrefix(prefix);
+                    }
+                }
             });
-        }, 0)
-        
+        }, 0);
     }
     get items () {
         return this.itemTargets.map(el => this.application.getControllerForElementAndIdentifier(el, "aiplugs-array-item")).filter(_ => _);
+    }
+    get nameTemplate() {
+        return this.data.get('name') || '';
+    }
+    set nameTemplate(value) {
+        this.data.set('name', value);
+        this.update();
+    }
+    setNamePrefix(prefix) {
+        this.nameTemplate = prefix + '.' + (this.data.get('nameTemplate') || '');
     }
 });
 AiplugsElements.register("aiplugs-array-item", class extends Stimulus.Controller {
@@ -62,6 +84,7 @@ AiplugsElements.register("aiplugs-array-item", class extends Stimulus.Controller
         this.downTarget.disabled = this.downDisabled;
         this.removeTarget.disabled = this.removeDisabled;
         this.labelTarget.innerText = this.label + "#" + this.index;
+        
     }
     get upDisabled() {
         const el = this.element.previousElementSibling;

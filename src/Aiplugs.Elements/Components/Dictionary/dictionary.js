@@ -4,8 +4,7 @@ AiplugsElements.register("aiplugs-dictionary", class extends Stimulus.Controller
     }
     initialize() {
         this.element.closest("form").addEventListener("submit", e => {
-            this.validate();
-            if (!this.message) {
+            if (!this.validate()) {
                 e.preventDefault();
                 return false;
             }
@@ -15,7 +14,9 @@ AiplugsElements.register("aiplugs-dictionary", class extends Stimulus.Controller
         const content = this.templateTarget.content.cloneNode(true);
         this.itemsTarget.appendChild(content);
         setTimeout(() => {
-            this.items.pop().itemKeyTarget.focus();
+            const item = this.items.pop();
+            item.itemKeyTarget.focus();
+            item.name = this.name;
         }, 0);
     }
     update() {
@@ -50,7 +51,9 @@ AiplugsElements.register("aiplugs-dictionary", class extends Stimulus.Controller
             }
         }
 
-        this.message = messages.filter((_, i) => _ != null && messages.indexOf(_) === i).join("<br>");
+        this.message = messages.filter((_, i) => _ !== null && messages.indexOf(_) === i).join("<br>");
+
+        return !this.message;
     }
     get items() {
         return this.itemTargets.map(item => this.application.resolve(item, "aiplugs-dictionary-item"));
@@ -62,16 +65,29 @@ AiplugsElements.register("aiplugs-dictionary", class extends Stimulus.Controller
         return this.data.get("regex-key");
     }
     get regexKeyPattern() {
-        return new RegExp(this.data.get("regex-key-pattern") || ".*");
+        return new RegExp(this.data.get("regex-key-pattern") || "^.*$");
     }
     get regexValue() {
         return this.data.get("regex-value");
     }
     get regexValuePattern() {
-        return new RegExp(this.data.get("regex-value-pattern") || ".*");
+        return new RegExp(this.data.get("regex-value-pattern") || "^.*$");
     }
     get duplicateKey() {
         return this.data.get("duplicate-key") || "Duplicate keys detected.";
+    }
+    get name() {
+        return this.data.get('name') || '';
+    }
+    set name(value) {
+        this.data.set('name', value);
+    }
+    setNamePrefix(prefix) {
+        const name = prefix + '.' + (this.data.get('nameTemplate') || '');
+        for (let item of this.children('aiplugs-dictionary-item')) {
+            item.name = name;
+        }
+        this.name = name;
     }
 });
 AiplugsElements.register("aiplugs-dictionary-item", class extends Stimulus.Controller {
@@ -80,7 +96,7 @@ AiplugsElements.register("aiplugs-dictionary-item", class extends Stimulus.Contr
     }
     update() {
         const name = this.name;
-        if (name != null) {
+        if (name !== null) {
             this.itemValueTarget.name = name;
         }
     }
@@ -93,6 +109,10 @@ AiplugsElements.register("aiplugs-dictionary-item", class extends Stimulus.Contr
         const n = this.data.get("name") || "";
         const k = this.itemKeyTarget.value;
         return k ? `${n}[${k}]` : null;
+    }
+    set name(value) {
+        this.data.set('name', value);
+        this.update();
     }
     get key() {
         return this.itemKeyTarget.value;

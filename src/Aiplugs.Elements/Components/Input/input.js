@@ -97,5 +97,8 @@ AiplugsElements.register("aiplugs-input", class extends Stimulus.Controller {
   }
   get valueFrom() {
     return this.data.get("value-from");
-  } 
+  }
+    setNamePrefix(prefix) {
+        this.inputTarget.name = prefix + '.' + (this.data.get('nameTemplate') || '');
+    }
 });

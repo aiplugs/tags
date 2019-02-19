@@ -73,9 +73,9 @@ namespace Aiplugs.Elements
             }, () => {
                 
                 output.Tag("input", () => {
-                    output.Attr("class", "aiplugs-dictionary__item-key");
+                    output.Attr("class", "aiplugs-dictionary__item-key val-ignore");
                     output.Attr("data-target", "aiplugs-dictionary-item.itemKey");
-                    output.Attr("data-action", "input->aiplugs-dictionary#validate");
+                    output.Attr("data-action", "input->aiplugs-dictionary#validate input->aiplugs-dictionary-item#update");
                     // output.Attr("data-val", "true");
 
                     if (PatternKey != null)
@@ -93,7 +93,7 @@ namespace Aiplugs.Elements
                 });
                 
                 output.Tag("input", () => {
-                    output.Attr("class", "aiplugs-dictionary__item-value");
+                    output.Attr("class", "aiplugs-dictionary__item-value val-ignore");
                     output.Attr("data-target", "aiplugs-dictionary-item.itemValue");
                     output.Attr("data-action", "aiplugs-dictionary#validate invalid->aiplugs-dictionary#validate");
                     // output.Attr("data-val", "true");
