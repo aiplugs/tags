@@ -1,5 +1,8 @@
 using System;
 using Aiplugs.Elements.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -13,8 +16,24 @@ namespace Aiplugs.Elements
         public string ValueFrom { get; set; }
         public string SettingsFrom { get; set; }
         public string JsonSchemas { get; set; }
+        [HtmlAttributeName("asp-for")]
+        public ModelExpression ModelExpression { get; set; }
+        [HtmlAttributeNotBound]
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            if (ModelExpression != null)
+            {
+                var expression = ModelExpression.Name;
+                var name = NameAndIdProvider.GetFullHtmlFieldName(ViewContext, expression);
+
+                if (Name == null)
+                    Name = name;
+
+                if (Value == null)
+                    Value = (string)AiplugsField.GetModelStateValue(ViewContext, Name, typeof(string)) ?? ModelExpression.ModelExplorer.Model?.ToString();
+            }
             var id = Guid.NewGuid().ToString();
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
