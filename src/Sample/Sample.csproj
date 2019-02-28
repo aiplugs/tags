@@ -12,22 +12,28 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="../Aiplugs.Elements/Aiplugs.Elements.csproj"/>
+    <ProjectReference Include="../Aiplugs.Elements/Aiplugs.Elements.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <PackageReference Include="Aiplugs.Elements" Version="1.0.0"/>
+    <PackageReference Include="Aiplugs.Elements" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Monaco.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
   <Target Name="CopyAssets" AfterTargets="PreBuildEvent" Condition="'$(Configuration)' == 'Debug'">
     <ItemGroup>
-      <AiplugsElementsAssets Include="../Aiplugs.Elements/wwwroot/**/*.*"/>
+      <AiplugsElementsAssets Include="../Aiplugs.Elements/wwwroot/**/*.*" />
     </ItemGroup>
     <Copy SourceFiles="@(AiplugsElementsAssets)" DestinationFiles="./wwwroot/%(RecursiveDir)%(Filename)%(Extension)" />
   </Target>
 
   <Target Name="BuildElements" BeforeTargets="Restore" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="dotnet build ../Aiplugs.Elements/Aiplugs.Elements.csproj"/>
+    <Exec Command="dotnet build ../Aiplugs.Elements/Aiplugs.Elements.csproj" />
   </Target>
 
 </Project>

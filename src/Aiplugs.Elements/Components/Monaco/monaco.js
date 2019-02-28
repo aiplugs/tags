@@ -28,10 +28,14 @@ AiplugsElements.register('aiplugs-monaco', class extends Stimulus.Controller {
                 // prevent browser action;
             });
             window.addEventListener('resize', () => {
-                editor.layout();
+                this.throttle('resize', 500, () => {
+                    editor.layout();
+                })
             });
             new ResizeObserver(() => {
-                editor.layout();
+                this.throttle('resize', 500, () => {
+                    editor.layout();
+                })
             }).observe(this.element);
             this.disposable(() => {
                 editor.dispose();
@@ -66,6 +70,6 @@ AiplugsElements.register('aiplugs-monaco', class extends Stimulus.Controller {
         return this.data.get('settings-from') || '';
     }
     get jsonSchemas() {
-        return (this.data.get('json-schemas') || '').split(',');
+        return (this.data.get('json-schemas') || '').split(',').filter(uri => !!uri);
     }
 });
