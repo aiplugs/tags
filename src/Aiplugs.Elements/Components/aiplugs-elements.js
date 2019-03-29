@@ -183,7 +183,9 @@
     $(function () {
         $('form').each(function (i, form) {
             const validation = $(form).data('validator');
-            validation.settings.ignore = validation.settings.ignore + ', .val-ignore';
+            if (validation) {
+                validation.settings.ignore = validation.settings.ignore + ', .val-ignore';
+            }
         })
     })
 }())
