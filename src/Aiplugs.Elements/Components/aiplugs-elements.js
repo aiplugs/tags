@@ -92,7 +92,7 @@
             if (method === r.method.toLowerCase() && m !== null) {
                 return {
                     send: function (headers, completeCallback) {
-                        completeCallback("200", "OK", { html: r.handler() });
+                        completeCallback("200", "OK", { html: r.handler(m, settings.data) });
                     },
                     abort: function () {
                     }
