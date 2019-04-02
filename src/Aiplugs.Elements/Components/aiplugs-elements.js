@@ -70,47 +70,18 @@
     global.AiplugsElements =  Stimulus.Application.start();
 }(window));
 
-(function($, aiplugs){
-    const ajax = $.ajax;
-    const registers = [];
+(function ($, aiplugs) {
 
-    function xhr(handler, match) {
-        return {
-            readyState: 1,
-            status: 0,
-            statusText: 0,
-            response: null,
-            responseText: null,
-            responseType: null,
-            responseXML: null,
-            open: function () {},
-            send: function (body) {
-                const finish = text => {
-                    this.readyState = 4;
-                    this.response = text;
-                    if (this.onload) this.onload();
-                }
-                const textOfPromise = handler(match, body);
-                if (textOfPromise.constructor === Promise) {
-                    textOfPromise.then(text => {
-                        finish(text);
-                    })
-                }
-                else if (typeof textOfPromise === 'string') {
-                    finish(textOfPromise);
-                }
-                
-            },
-            abort: function () {},
-            getAllResponseHeaders: function () {},
-            getResponseHeader: function () {},
-            overrideMimeType: function () {},
-            setRequestHeader: function () {}
-        }
+    const registers = [];
+    function register(method, url, handler) {
+        registers.push({
+            method,
+            url,
+            handler
+        });
     }
 
-    $.ajax = function (settings) {
-        let hit = false;
+    $.ajaxTransport('text', function (opts, settings) {
         let method = (settings.type || 'get').toLowerCase();
         const override = settings.headers['X-HTTP-Method-Override'];
         if (override) {
@@ -119,29 +90,21 @@
         for (let r of registers) {
             const m = r.url.exec(settings.url);
             if (method === r.method.toLowerCase() && m !== null) {
-                ajax.call($, Object.assign({}, settings, {
-                    xhr: function () { 
-                        return xhr(r.handler, m);
+                return {
+                    send: function (headers, completeCallback) {
+                        completeCallback("200", "OK", { html: r.handler() });
+                    },
+                    abort: function () {
                     }
-                }))
-                hit = true;
+                }
             }
         }
-        if (!hit) {
-            ajax.apply($, arguments);
-        }
-    }
+    });
 
-    function register(method, url, handler) {
-        registers.push({
-            method,
-            url,
-            handler
-        });
-    }
     function decode(str) {
         return decodeURIComponent((str||'').replace(/\+/g, '%20'));
     }
+
     function parse(str) {
         return (str||'').split('&')
                         .map(set => set.split('='))
