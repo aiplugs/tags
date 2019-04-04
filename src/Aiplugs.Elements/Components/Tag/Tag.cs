@@ -87,6 +87,10 @@ namespace Aiplugs.Elements
         {
             Name = Name.WithArraySuffix();
             base.Process(context, output);
+
+            if (!string.IsNullOrEmpty(Name))
+                output.Attributes.Add($"data-{ElementName}-name", Name);
+
             RenderFieldHeader(context, output);
 
             var id = GetDomId();
