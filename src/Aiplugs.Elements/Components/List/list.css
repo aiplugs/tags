@@ -39,6 +39,7 @@
     padding: 1.2rem;
     width: 14.4rem;
     font-weight: normal; 
+    overflow: hidden;
 }
 
 .aiplugs-list th {
