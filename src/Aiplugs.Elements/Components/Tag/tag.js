@@ -2,16 +2,7 @@ AiplugsElements.register("aiplugs-tag", class extends Stimulus.Controller {
     static get targets() {
         return ["template","input","suggestion","item"];
     }
-    // initialize() {
-    //     this.element.closest("form").addEventListener("submit", e => {
-    //         if (!this.validate(true)) {
-    //             e.preventDefault();
-    //             return false;
-    //         }
-    //     });
-    // }
     update() {
-        // this.element.classList.toggle("aiplugs-tag--invalid", !this.valid);
         this.element.classList.toggle("aiplugs-tag--focus-last", this.focusLast);
     }
     onKeydown(e) {

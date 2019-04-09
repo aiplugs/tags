@@ -198,7 +198,7 @@ namespace Aiplugs.Elements
                     output.Html(" checked ");
                 }
                 else {
-                    output.Attr("class", "aiplugs-tag__dummy");
+                    output.Attr("class", "aiplugs-tag__dummy val-ignore");
                 }
             });
         }
