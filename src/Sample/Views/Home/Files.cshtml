@@ -40,7 +40,7 @@
         </aiplugs-actions>
         
         <aiplugs-list id="list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onSelectedItems()">
-            @foreach(var folder in Model.Folders)
+            @foreach (var folder in Model.Folders)
             {
                 <aiplugs-list-item name="folders[]" item="@folder.Name">
                     <aiplugs-list-column class="flex">
@@ -50,10 +50,18 @@
                     <aiplugs-list-column class="text-small"></aiplugs-list-column>
                 </aiplugs-list-item>
             }
-            @if (Model.Files.Count() > 0) {
+            <aiplugs-list-item name="folders[]" item="0" selected>
+                <aiplugs-list-column class="flex">
+                    <a href=""><i class="fa fa-folder"></i>selected</a>
+                </aiplugs-list-column>
+                <aiplugs-list-column class="text-small"></aiplugs-list-column>
+                <aiplugs-list-column class="text-small"></aiplugs-list-column>
+            </aiplugs-list-item>
+            @if (Model.Files.Count() > 0)
+            {
                 var maxSize = Model.Files.Max(f => f.Size);
                 var padSize = maxSize.ToString("##,###").Length;
-                foreach(var file in Model.Files)
+                foreach (var file in Model.Files)
                 {
                     <aiplugs-list-item name="files[]" item="@file.Name">
                         <aiplugs-list-column class="flex" ic-get-from="@(file.PreviewLink)" ic-target="#preview" ic-replace-target="true">

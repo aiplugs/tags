@@ -12,6 +12,8 @@ namespace Aiplugs.Elements
         public string Name {get; set;}
         public string Item { get; set; }
         public bool Checked { get; set; }
+        public bool Selected { get; set; }
+
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "tr";
@@ -19,6 +21,7 @@ namespace Aiplugs.Elements
             output.Attributes.Add("data-target", "aiplugs-list.item");
             output.Attributes.Add("data-controller", "aiplugs-list-item");
             output.Attributes.Add("data-action", "click->aiplugs-list#select");
+            output.Attributes.Add("data-aiplugs-list-item-selected", Selected.ToString().ToLower());
 
             if (Checked) 
                 output.Attributes.Merge("class", "aiplugs-list__item--checked");

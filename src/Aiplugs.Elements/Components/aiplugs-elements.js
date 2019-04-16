@@ -130,7 +130,7 @@
     aiplugs.parseFormUrlEncoded = parse;
 }(jQuery, AiplugsElements));
 
-(function(){
+(function () {
     Intercooler.ready(function () {
         const observer = new MutationObserver(records => {
             for (let record of records) {
@@ -142,7 +142,10 @@
             }
         });
         observer.observe(document.body, { childList: true });
-    })
+    });
+}());
+
+(function(){
     $(function () {
         $('form').each(function (i, form) {
             const validation = $(form).data('validator');
@@ -150,5 +153,27 @@
                 validation.settings.ignore = validation.settings.ignore + ', .val-ignore';
             }
         })
+
+        const intersection = new IntersectionObserver((entries) => {
+            for (const e of entries) {
+                if (e.isIntersecting) {
+                    $(e.target).trigger('in-viewport');
+                }
+            }
+        });
+        const mutation = new MutationObserver(records => {
+            for (const record of records) {
+                for (const node of record.addedNodes) {
+                    if (node.nodeType === node.ELEMENT_NODE && node.classList.contains('in-viewport')) {
+                        intersection.observe(node);
+                    }
+                }
+            }
+        });
+        const elems = document.querySelectorAll('[ic-trigger-on="in-viewport"]');
+        for (const elem of elems) {
+            mutation.observe(elem.parentElement, { childList: true });
+            intersection.observe(elem);
+        }
     })
 }())
