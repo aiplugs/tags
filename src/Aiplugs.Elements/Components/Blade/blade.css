@@ -21,6 +21,9 @@
 .aiplugs-blade.--expanded {
     flex: 1;
 }
+.aiplugs-blade.--wide.--expanded {
+    flex: 2;
+}
 
 .aiplugs-blade__header {
     font-family: var(--base-font-family);
