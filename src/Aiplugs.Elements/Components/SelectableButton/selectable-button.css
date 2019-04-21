@@ -1,0 +1,164 @@
+﻿.aiplugs-selectable-button {
+    box-sizing: border-box;
+    border-radius: 0.3rem;
+    border: 0.1rem solid transparent;
+    margin: 0.1rem;
+    user-select: none;
+    transition: all linear 0.125s;
+}
+
+.aiplugs-selectable-button__select {
+    padding: 0.8rem 0 0.8rem 1.6rem;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.aiplugs-selectable-button__button {
+    display: inline-block;
+    padding: 0.8rem 1.6rem 0.8rem 0;
+    outline: none;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    outline: none;
+    text-decoration: none;
+}
+
+
+.aiplugs-selectable-button:hover:not(.--disabled),
+.aiplugs-selectable-button:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button:hover:not(.--disabled) .aiplugs-selectable-button__button
+{
+    cursor: pointer;
+    color: var(--color-text-primary);
+}
+
+.aiplugs-selectable-button:active:not(.--disabled),
+.aiplugs-selectable-button:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button:hover:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-text-secondary);
+}
+
+.aiplugs-selectable-button.--primary,
+.aiplugs-selectable-button.--primary .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--primary .aiplugs-selectable-button__button {
+    color: var(--color-primary);
+}
+
+.aiplugs-selectable-button.--primary:hover:not(.--disabled),
+.aiplugs-selectable-button.--primary:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--primary:hover:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-accent);
+}
+
+.aiplugs-selectable-button.--primary:active:not(.--disabled),
+.aiplugs-selectable-button.--primary:active:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--primary:active:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-primary);
+}
+
+.aiplugs-selectable-button.--warning,
+.aiplugs-selectable-button.--warning .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--warning .aiplugs-selectable-button__button {
+    color: var(--color-error);
+}
+
+.aiplugs-selectable-button.--warning:hover:not(.--disabled),
+.aiplugs-selectable-button.--warning:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--warning:hover:not(.--disabled) .aiplugs-selectable-button__button{
+    color: var(--color-error);
+}
+
+.aiplugs-selectable-button.--warning:active:not(.--disabled),
+.aiplugs-selectable-button.--warning:active:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--warning:active:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-text-secondary);
+}
+
+.aiplugs-selectable-button.--block:not(.--disabled) {
+    background: var(--color-mono);
+}
+.aiplugs-selectable-button.--block:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-text-secondary);
+}
+
+.aiplugs-selectable-button.--block:hover:not(.--disabled) {
+    background: var(--color-text-secondary);
+}
+.aiplugs-selectable-button.--block:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block:hover:not(.--disabled) .aiplugs-selectable-button__button {
+    color: white;
+}
+
+.aiplugs-selectable-button.--block:active:not(.--disabled) {
+    background: transparent;
+    border-color: var(--color-text-secondary);
+}
+.aiplugs-selectable-button.--block:active:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block:active:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-text-secondary);
+}
+
+.aiplugs-selectable-button.--block.--primary:not(.--disabled) {
+    background: var(--color-primary);
+}
+.aiplugs-selectable-button.--block.--primary:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--primary:not(.--disabled) .aiplugs-selectable-button__button {
+    color: white;
+}
+
+.aiplugs-selectable-button.--block.--primary:hover:not(.--disabled) {
+    background: var(--color-accent);
+}
+.aiplugs-selectable-button.--block.--primary:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--primary:hover:not(.--disabled) .aiplugs-selectable-button__button {
+}
+
+.aiplugs-selectable-button.--block.--primary:active:not(.--disabled) {
+    background: transparent;
+    border-color: var(--color-primary);
+}
+.aiplugs-selectable-button.--block.--primary:active:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--primary:active:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-primary);
+}
+
+.aiplugs-selectable-button.--block.--warning:not(.--disabled) {
+    background: var(--color-error);
+}
+.aiplugs-selectable-button.--block.--warning:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--warning:not(.--disabled) .aiplugs-selectable-button__button {
+    color: white;
+}
+
+.aiplugs-selectable-button.--block.--warning:hover:not(.--disabled) {
+    background: var(--color-error);
+}
+.aiplugs-selectable-button.--block.--warning:hover:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--warning:hover:not(.--disabled) .aiplugs-selectable-button__button {
+}
+
+.aiplugs-selectable-button.--block.--warning:active:not(.--disabled) {
+    background: transparent;
+    border-color: var(--color-error);
+}
+.aiplugs-selectable-button.--block.--warning:active:not(.--disabled) .aiplugs-selectable-button__select,
+.aiplugs-selectable-button.--block.--warning:active:not(.--disabled) .aiplugs-selectable-button__button {
+    color: var(--color-error);
+}
+
+.aiplugs-selectable-button__select option {
+    color: var(--color-text-primary);
+}
+
+.aiplugs-selectable-button.--disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.aiplugs-selectable-button.--full {
+    width: 100%;
+}

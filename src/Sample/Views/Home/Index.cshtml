@@ -14,6 +14,9 @@
     var dict = new Dictionary<string, string> { {"MSG", "Hello, World!"} };
     var tags = new [] { new SelectListItem { Text = "東京", Value = "tokyo"} };
     var tagValue = new [] { "tokyo" };
+
+    var commands = new [] { new SelectListItem { Text = "Validation", Value = "validation"}, new SelectListItem { Text = "Custom", Value = "custom"} };
+    var pages = new [] { new SelectListItem { Text = "Files", Value = "/page/files"}, new SelectListItem { Text = "Text", Value = "/page/text"} };
 }
 
 <aiplugs-blade label="Sample">
@@ -21,6 +24,8 @@
         <aiplugs-actions>
             <button is="aiplugs-button" looks="block" color="primary">Update</button>
             <button is="aiplugs-button">Cancel</button>
+            <button is="aiplugs-selectable-button" selection="@commands" looks="block" select-name="cmd">Exec</button>
+            <a is="aiplugs-selectable-button" selection="@pages" color="primary" looks="block">Go</a>
             <span is="aiplugs-space"></span>
             <button type="button" is="aiplugs-button" open="#delete-dialog">Delete</button>
             <template id="delete-dialog">
