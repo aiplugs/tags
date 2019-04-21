@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Aiplugs.Elements.Extensions;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.Localization;
 
@@ -11,6 +12,8 @@ namespace Aiplugs.Elements
         public string Placeholder { get; set; }
         public int? MaxLength { get; set; }
         public int? MinLength { get; set; }
+        public string Pattern { get; set; }
+        public string PatternErrorMessage { get; set; }
         public string Value { get; set; }
         public AiplugsTextarea(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
@@ -44,6 +47,15 @@ namespace Aiplugs.Elements
 
                     else if (MaxLength == null && attribute is MaxLengthAttribute maxLengthAttribute)
                             MaxLength = maxLengthAttribute.Length;
+
+                    else if (attribute is RegularExpressionAttribute regularExpressionAttribute)
+                    {
+                        if (Pattern == null)
+                            Pattern = regularExpressionAttribute.Pattern;
+
+                        if (PatternErrorMessage == null)
+                            PatternErrorMessage = regularExpressionAttribute.ErrorMessage;
+                    }
                 }
             }
         }
@@ -67,6 +79,25 @@ namespace Aiplugs.Elements
 
             if (Required)
                 output.Content.AppendHtml($"required data-val-required=\"{Localizer[SharedResource.VAL_MSG_REQUIRED, Label]}\"");
+
+            if (!string.IsNullOrEmpty(Pattern))
+            {
+                var message = !string.IsNullOrEmpty(PatternErrorMessage) ? PatternErrorMessage : Localizer.MsgValPattern(Label, Pattern);
+                output.Attr("data-val-regex", message);
+                output.Attr("data-val-regex-pattern", Pattern);
+            }
+
+            if (MaxLength.HasValue)
+            {
+                output.Attr("data-val-maxlength", Localizer.MsgValMaxLengthForString(Label, MaxLength.Value));
+                output.Attr("data-val-maxlength-max", MaxLength.ToString());
+            }
+
+            if (MinLength.HasValue)
+            {
+                output.Attr("data-val-minlength", Localizer.MsgValMinLengthForString(Label, MinLength.Value));
+                output.Attr("data-val-minlength-min", MinLength.ToString());
+            }
 
             output.Content.AppendHtml(">");
             output.Content.Append(Value??"");
