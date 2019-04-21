@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Aiplugs.Elements.Extensions;
@@ -12,8 +13,50 @@ namespace Aiplugs.Elements
         public override string ElementName => "aiplugs-code";
         public string Lang { get; set; }
         public string Value { get; set; }
+        public int? MaxLength { get; set; }
+        public int? MinLength { get; set; }
+        public string Pattern { get; set; }
+        public string PatternErrorMessage { get; set; }
         public AiplugsCode(IStringLocalizer<SharedResource> localizer) : base(localizer)
         {
+        }
+
+        protected override void ExtractFromModelExpression()
+        {
+            base.ExtractFromModelExpression();
+
+            if (ModelExpression != null)
+            {
+                if (Value == null)
+                    Value = (string)GetModelStateValue(ViewContext, Name, typeof(string)) ?? ModelExpression.ModelExplorer.Model?.ToString();
+
+                foreach (var attribute in ModelExpression.ModelExplorer.Metadata.ValidatorMetadata)
+                {
+                    if (attribute is StringLengthAttribute stringLengthAttribute)
+                    {
+                        if (MinLength == null)
+                            MinLength = stringLengthAttribute.MinimumLength;
+
+                        if (MaxLength == null)
+                            MaxLength = stringLengthAttribute.MaximumLength;
+                    }
+
+                    else if (MinLength == null && attribute is MinLengthAttribute minLengthAttribute)
+                        MinLength = minLengthAttribute.Length;
+
+                    else if (MaxLength == null && attribute is MaxLengthAttribute maxLengthAttribute)
+                        MaxLength = maxLengthAttribute.Length;
+
+                    else if (attribute is RegularExpressionAttribute regularExpressionAttribute)
+                    {
+                        if (Pattern == null)
+                            Pattern = regularExpressionAttribute.Pattern;
+
+                        if (PatternErrorMessage == null)
+                            PatternErrorMessage = regularExpressionAttribute.ErrorMessage;
+                    }
+                }
+            }
         }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
@@ -45,7 +88,26 @@ namespace Aiplugs.Elements
                     output.Attr("required");
                     output.Attr("data-val-required", Localizer.MsgValRequired(Label));
                 }
-                    
+
+                if (!string.IsNullOrEmpty(Pattern))
+                {
+                    var message = !string.IsNullOrEmpty(PatternErrorMessage) ? PatternErrorMessage : Localizer.MsgValPattern(Label, Pattern);
+                    output.Attr("data-val-regex", message);
+                    output.Attr("data-val-regex-pattern", Pattern);
+                }
+
+                if (MaxLength.HasValue)
+                {
+                    output.Attr("data-val-maxlength", Localizer.MsgValMaxLengthForString(Label, MaxLength.Value));
+                    output.Attr("data-val-maxlength-max", MaxLength.ToString());
+                }
+
+                if (MinLength.HasValue)
+                {
+                    output.Attr("data-val-minlength", Localizer.MsgValMinLengthForString(Label, MinLength.Value));
+                    output.Attr("data-val-minlength-min", MinLength.ToString());
+                }
+
                 output.Attr("data-target", "aiplugs-code.input");
                 output.Attr("data-val", "true");
 
