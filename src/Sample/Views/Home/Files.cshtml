@@ -2,6 +2,7 @@
 @{
     ViewBag.PageName = "Files";
     ViewData["Title"] = "Files";
+    var methodList = new[] { new SelectListItem { Text = "Simple", Value = "simple" }, new SelectListItem { Text = "Advanced", Value = "advanced", Selected = true } };
 }
 <aiplugs-blade wide expanded>
     <ul is="aiplugs-breadcrumb" id="file-modal__breadcrumb">
@@ -11,8 +12,9 @@
         }
     </ul>
     <form id="files" method="GET" class="flex">
+        <aiplugs-search name="keyword" method-name="method" method-list="@methodList" />
         <aiplugs-actions id="actions">
-            <button is="aiplugs-button" looks="block" color="primary" >Upload</button>
+            <button is="aiplugs-button" looks="block" color="primary">Upload</button>
             <button is="aiplugs-button" looks="block">New Folder</button>
             <button is="aiplugs-button" looks="block" when="one" open="#rename-dialog">Rename</button>
             <template id="rename-dialog">
@@ -38,7 +40,7 @@
                 </aiplugs-dialog>
             </template>
         </aiplugs-actions>
-        
+
         <aiplugs-list id="list" label-name="Name*" label-size="Size" label-lastmodified="Last Modified" onchange="onSelectedItems()">
             @foreach (var folder in Model.Folders)
             {

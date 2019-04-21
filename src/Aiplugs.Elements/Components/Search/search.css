@@ -1,0 +1,38 @@
+﻿.aiplugs-search {
+    display: flex;
+    flex-direction:row;
+    padding: 1.2rem;
+    position: relative;
+}
+.aiplugs-search__method {
+    padding: 0.8rem 1.6rem;
+    background: transparent;
+    border: 1px solid var(--color-line-accent);
+    border-right: none;
+    border-radius: 2px 0 0 2px;
+    outline: none;
+}
+.aiplugs-search__query {
+    flex: 1;
+    padding: 0.8rem 1.6rem;
+    background: transparent;
+    border: 1px solid var(--color-line-accent);
+    border-radius: 0 2px 2px 0;
+    outline: none;
+}
+.aiplugs-search__submit {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    outline: none;
+    color: var(--color-text-secondary);
+    background: transparent;
+    box-sizing: border-box;
+    border-radius: 0.3rem;
+    border: 0.1rem solid transparent;
+    margin: 0.1rem;
+    user-select: none;
+    transition: all linear 0.125s;
+    text-decoration: none;
+    position: absolute;
+    right: 1.6rem;
+}
