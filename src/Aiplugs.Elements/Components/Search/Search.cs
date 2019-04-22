@@ -23,6 +23,7 @@ namespace Aiplugs.Elements.Components.Search
             {
                 output.Tag("select", () =>
                 {
+                    output.Attr("name", MethodName);
                     output.Attr("class", "aiplugs-serach__method");
                 }, () =>
                 {
