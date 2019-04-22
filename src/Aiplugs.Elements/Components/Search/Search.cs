@@ -24,7 +24,7 @@ namespace Aiplugs.Elements.Components.Search
                 output.Tag("select", () =>
                 {
                     output.Attr("name", MethodName);
-                    output.Attr("class", "aiplugs-serach__method");
+                    output.Attr("class", "aiplugs-search__method");
                 }, () =>
                 {
                     foreach (var item in MethodList)
