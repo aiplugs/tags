@@ -14,7 +14,7 @@
                 this.buttonTarget.href = value;
             }
             else {
-                this.buttonTarget.name = value;
+                this.buttonTarget.value = value;
             }
         }
     }
