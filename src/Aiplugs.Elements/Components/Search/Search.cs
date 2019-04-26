@@ -11,6 +11,7 @@ namespace Aiplugs.Elements.Components.Search
         public IEnumerable<SelectListItem> MethodList { get; set; }
         public string MethodName { get; set; } = "method";
         public string Name { get; set; }
+        public string Value { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -44,6 +45,7 @@ namespace Aiplugs.Elements.Components.Search
             output.Tag("input", () =>
             {
                 output.Attr("name", Name);
+                output.Attr("value", Value);
                 output.Attr("class", "aiplugs-search__query");
             });
 
