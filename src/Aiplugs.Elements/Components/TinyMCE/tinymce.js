@@ -15,6 +15,7 @@ AiplugsElements.register("aiplugs-tinymce", class extends Stimulus.Controller {
       paste_as_text: true,
       resize: false,
       height: document.body.scrollHeight - this.element.offsetTop - 110,
+      relative_urls : false,
       save_onsavecallback: function () { },
       setup: function onSetup(editor) {
         editor.addButton('fileimage', {
