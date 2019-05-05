@@ -89,7 +89,7 @@ AiplugsElements.registerIcProxy('POST', /\/\/aiplugs-tinymce\/active\/videos/, f
   const src = data['src'];
   const alt = data['alt'];
   const title = data['title'];
-  const html = `<video src="${src}" alt="${alt}" title="${title}"></video>`;
+  const html = `<video src="${src}" alt="${alt}" title="${title}" controls></video>`;
   tinymce.activeEditor.insertContent(html);
   return '\n';
 })
