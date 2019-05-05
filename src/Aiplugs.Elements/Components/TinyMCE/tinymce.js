@@ -80,7 +80,7 @@ AiplugsElements.registerIcProxy('POST', /\/\/aiplugs-tinymce\/active\/images/, f
   const src = data['src'];
   const alt = data['alt'];
   const title = data['title'];
-  const html = `<img src="${src}" alt="${alt} title="${title}"/>`;
+  const html = `<img src="${src}" alt="${alt}" title="${title}"/>`;
   tinymce.activeEditor.insertContent(html);
   return '\n';
 })
@@ -89,7 +89,7 @@ AiplugsElements.registerIcProxy('POST', /\/\/aiplugs-tinymce\/active\/videos/, f
   const src = data['src'];
   const alt = data['alt'];
   const title = data['title'];
-  const html = `<video src="${src}" alt="${alt} title="${title}"></video>`;
+  const html = `<video src="${src}" alt="${alt}" title="${title}"></video>`;
   tinymce.activeEditor.insertContent(html);
   return '\n';
 })
