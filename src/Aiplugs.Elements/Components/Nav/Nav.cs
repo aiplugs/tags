@@ -13,7 +13,7 @@ namespace Aiplugs.Elements
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Merge("class", "aiplugs-nav");
             output.Attributes.Add("data-controller", "aiplugs-nav");
-            output.Attributes.Add("data-aiplugs-nav-threthold", FoldThreshold);
+            output.Attributes.Add("data-aiplugs-nav-threshold", FoldThreshold);
         }
     }
 
