@@ -38,7 +38,7 @@ namespace Aiplugs.Elements
         private string _intercooler => "https://cdnjs.cloudflare.com/ajax/libs/intercooler-js/1.2.1/intercooler.min.js";
 
         public bool Stimulus { get; set; } = true;
-        private string _stimulus => "https://unpkg.com/stimulus/dist/stimulus.umd.js";
+        private string _stimulus => "https://unpkg.com/stimulus@1.1.1/dist/stimulus.umd.js";
 
         public bool Monaco { get; set; } = true;
         private string _monaco => "https://unpkg.com/monaco-editor/min/vs/loader.js";
